@@ -25,9 +25,9 @@ class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @identity = Identity.find_for_oauth(auth)
     @user = User.find(current_user.id)
     if @user.persisted?
-      register_info_path
+      root_path
     else
-      home_index_path
+      new_user_session_path
     end
   end
 end
