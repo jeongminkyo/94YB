@@ -36,3 +36,5 @@ p
 
 # Ignore DB schema
 db/schema.rb
+# Ignore application configuration
+/config/application.yml
