@@ -6,6 +6,8 @@ Devise.setup do |config|
 
   config.omniauth :facebook, ENV["Facebook_Key"], ENV["Facebook_Secret"]
   config.omniauth :google_oauth2, ENV["Google_Key"], ENV["Google_Secret"]
+  config.omniauth :naver, ENV['NAVER_KEY'], ENV['NAVER_SECRET']
+
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.

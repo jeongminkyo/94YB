@@ -43,6 +43,7 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
+gem 'omniauth-naver'
 
 # 환경변수
 gem 'figaro'
