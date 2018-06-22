@@ -48,6 +48,11 @@ gem 'omniauth-naver'
 # 환경변수
 gem 'figaro'
 
+# Calendar
+gem 'simple_calendar', '~> 2.0'
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
+
 # Rspec
 group :development, :test do
   gem 'rspec-rails'             # rails 지원하는 rspec
