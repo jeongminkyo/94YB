@@ -9,6 +9,7 @@ class CalendarsController < ApplicationController
     calendars.each do |calendar|
       return_calendar.push(calendar.attributes)
       return_calendar.last['edit_url'] = '/calendars/' + calendar.id.to_s + '/edit'
+      return_calendar.last['update_url'] = '/calendars/' + calendar.id.to_s
     end
 
     respond_to do |format|
@@ -25,12 +26,13 @@ class CalendarsController < ApplicationController
   end
 
   def create
+    p params
     @calendar = Calendar.new(calendar_params)
     @calendar.save
   end
 
   def update
-    @calendar.update(calendar_params)
+    @calendar.update(start: params['event']['start'], end: params['event']['end'])
   end
 
   def destroy
