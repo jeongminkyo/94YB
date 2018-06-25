@@ -1,0 +1,25 @@
+<%= stylesheet_link_tag 'login' %>
+<div class="container">
+  <div class="omb_login">
+    <h3 class="omb_authTitle">이름 등록</h3>
+
+    <div class="row omb_row-sm-offset-3 omb_loginOr">
+      <div class="col-xs-12 col-sm-6">
+      </div>
+    </div>
+
+    <div class="row omb_row-sm-offset-3">
+      <div class="col-xs-12 col-sm-6 omb_socialButtons">
+        <%= form_tag register_path method: :post do %>
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+            <%= text_field_tag 'name', nil, class: 'form-control', placeholder: 'name' %>
+          </div>
+          <span class="help-block"></span>
+          <button class="btn btn-md btn-primary btn-block login" type="submit">Login</button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

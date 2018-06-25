@@ -31,7 +31,7 @@ class CalendarsController < ApplicationController
     @calendar = Calendar.new(title: params['calendar']['title'], start: params['calendar']['start'], end: params['calendar']['end'], user_id: current_user.id)
     respond_to do |format|
       if @calendar.save
-        format.html { redirect_to calendars_path, notice: 'Event was successfully created.' }
+        format.html { redirect_to calendars_path, notice: '일정이 등록되었습니다.' }
       else
         format.html { render action: 'new' }
       end
@@ -41,7 +41,7 @@ class CalendarsController < ApplicationController
   def update
     respond_to do |format|
       if @calendar.update(start: params['calendar']['start'], end: params['calendar']['end'])
-        format.html { redirect_to calendars_path, notice: 'Event was successfully updated.' }
+        format.html { redirect_to calendars_path, notice: '일정이 변경되었습니다.' }
       else
         format.html { render action: 'edit' }
       end
