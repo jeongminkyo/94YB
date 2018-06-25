@@ -53,6 +53,7 @@ gem 'figaro'
 gem 'simple_calendar', '~> 2.0'
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
+gem 'bootstrap-daterangepicker-rails'
 
 # Rspec
 group :development, :test do

@@ -1,7 +1,6 @@
 class CalendarsController < ApplicationController
   before_action :set_calendar, only: [:edit, :update, :destroy]
 
-
   def index
     calendars = Calendar.all
 
@@ -23,29 +22,39 @@ class CalendarsController < ApplicationController
   end
 
   def edit
+
   end
 
   def create
-    p params
-    @calendar = Calendar.new(calendar_params)
-    @calendar.save
+    @calendar = Calendar.new(title: params['calendar']['title'], start: params['calendar']['start'], end: params['calendar']['end'], user_id: 1)
+    respond_to do |format|
+      if @calendar.save
+        format.html { redirect_to calendars_path, notice: 'Event was successfully created.' }
+      else
+        format.html { render action: 'new' }
+      end
+    end
   end
 
   def update
-    @calendar.update(start: params['event']['start'], end: params['event']['end'])
+    respond_to do |format|
+      if @calendar.update(start: params['calendar']['start'], end: params['calendar']['end'])
+        format.html { redirect_to calendars_path, notice: 'Event was successfully updated.' }
+      else
+        format.html { render action: 'edit' }
+      end
+    end
   end
 
   def destroy
     @calendar.destroy
+    respond_to do |format|
+      format.html { redirect_to calendars_path }
+    end
   end
 
   private
-
   def set_calendar
     @calendar = Calendar.find(params[:id])
-  end
-
-  def calendar_params
-    params.require(:calendars).permit(:title, :start, :end)
   end
 end
