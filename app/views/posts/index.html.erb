@@ -7,6 +7,7 @@
     <tr>
       <th>제목</th>
       <th>작성자</th>
+      <th>생성일</th>
     </tr>
   </thead>
 
@@ -15,6 +16,7 @@
       <tr>
         <td><%= post.title %></td>
         <td><%= post.display_name %></td>
+        <td><%= post.created_at %></td>
       </tr>
     <% end %>
   </tbody>
