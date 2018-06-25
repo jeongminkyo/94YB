@@ -1,5 +1,6 @@
 class CalendarsController < ApplicationController
   before_action :set_calendar, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!
 
   def index
     calendars = Calendar.all
@@ -9,6 +10,7 @@ class CalendarsController < ApplicationController
       return_calendar.push(calendar.attributes)
       return_calendar.last['edit_url'] = '/calendars/' + calendar.id.to_s + '/edit'
       return_calendar.last['update_url'] = '/calendars/' + calendar.id.to_s
+      return_calendar.last['color'] = User.find(calendar.user_id).color
     end
 
     respond_to do |format|
@@ -26,7 +28,7 @@ class CalendarsController < ApplicationController
   end
 
   def create
-    @calendar = Calendar.new(title: params['calendar']['title'], start: params['calendar']['start'], end: params['calendar']['end'], user_id: 1)
+    @calendar = Calendar.new(title: params['calendar']['title'], start: params['calendar']['start'], end: params['calendar']['end'], user_id: current_user.id)
     respond_to do |format|
       if @calendar.save
         format.html { redirect_to calendars_path, notice: 'Event was successfully created.' }
