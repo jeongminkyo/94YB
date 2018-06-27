@@ -13,10 +13,10 @@
 
   <tbody>
     <% @posts.each do |post| %>
-      <tr>
+      <tr id="<%= dom_id(post) %>"  class="linkable" data-href="<%= posts_path+'/'+post.id.to_s %>">
         <td><%= post.title %></td>
         <td><%= post.display_name %></td>
-        <td><%= post.created_at %></td>
+        <td><%= post.created_at.to_date %></td>
       </tr>
     <% end %>
   </tbody>
@@ -25,3 +25,14 @@
 <br>
 
 <%= link_to 'New Post', new_post_path %>
+
+<script>
+    $(document).ready(function(){
+        $('table td').click(function(){
+            window.location = $(this).parent().data('href');
+            return false;
+        });
+        $('[data-toggle="tooltip"]').tooltip();
+        $(".delivary").addClass("active");
+    });
+</script>
