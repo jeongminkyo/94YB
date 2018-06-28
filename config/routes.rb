@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :post_attachments
   controller :register do
     get 'register/info' => :info
     post 'register/info'=> :create, as: 'register'

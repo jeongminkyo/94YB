@@ -17,7 +17,10 @@
 
 <p>
   <strong>사진:</strong>
-  <%= image_tag("#{@post.image.detail}") %>
+  <% @post_attachments.each do |post| %>
+    <%= image_tag("#{post.s3}") %>
+  <% end %>
+
 </p>
 
 <%= render 'comments/comments' %>

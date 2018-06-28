@@ -6,12 +6,24 @@
     <%= f.input :context %>
   </div>
 
-  <div class="field">
-    <%= f.label :image %><br>
-    <%= f.file_field :image, accept: 'image/png,image/gif,image/jpeg' %>
-  </div>
+  <%= f.fields_for :post_attachments do |p| %>
+    <div class="field">
+      <%= p.label :s3 %><br>
+      <%= p.file_field :s3, :multiple => true, name: 'post_attachments[s3][]' %>
+    </div>
+    <button class="btn btn-sm add_btn">추가</button>
+  <% end %>
 
   <div class="form-actions">
     <%= f.button :submit %>
   </div>
 <% end %>
+
+
+<script>
+  $('.add_btn').click(function() {
+      var div = $('<input multiple="multiple" name="post_attachments[s3][]" type="file" id="post_post_attachments_attributes_0_s3">');
+      $('.field').append(div);
+      return false;
+  });
+</script>
