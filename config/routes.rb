@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   end
   devise_for :users, :controllers => { omniauth_callbacks: 'user/omniauth_callbacks' }
   resources :calendars
-  resources :posts
+  resources :posts do
+    resources :comments, only: [:create, :destroy]
+  end
   root 'welcome#index'
 end

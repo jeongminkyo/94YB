@@ -1,37 +1,30 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Posts</h1>
+<% @posts.each do |post| %>
+  <li>
+    <div class="text-box" id="<%= dom_id(post) %>"  class="linkable" data-href="<%= posts_path+'/'+post.id.to_s %>">
+      <h1><%= truncate(post.title, length: 40) %></h1>
+      <div class="info">
+        <span class="nickname"><%= post.display_name %></span>
+        <span><%= post.created_at.to_date %></span>
+        <span>조회: 0 </span>
+      </div>
+      <div class="info">
+        <img src="http://akamai-cdn.cashslide.kr/comm_sys_fl_brd_icon_reply_s.png" class="like-icon" /> <span class="like-text">0</span>
+        <img src="http://akamai-cdn.cashslide.kr/comm_sys_fl_brd_icon_like.png" class="like-icon" /> <span class="like-text">0</span>
+      </div>
+    </div>
+  </li>
+<% end %>
 
-<table class="table table-hover no-more-tables" style="margin-top: 20px;">
-  <thead>
-    <tr>
-      <th>No</th>
-      <th>제목</th>
-      <th>작성자</th>
-      <th>생성일</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @posts.each do |post| %>
-      <tr id="<%= dom_id(post) %>"  class="linkable" data-href="<%= posts_path+'/'+post.id.to_s %>">
-        <td><%= post.id %></td>
-        <td><%= post.title %></td>
-        <td><%= post.display_name %></td>
-        <td><%= post.created_at.to_date %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
 
 <%= link_to 'New Post', new_post_path %>
 
 <script>
     $(document).ready(function(){
-        $('table td').click(function(){
-            window.location = $(this).parent().data('href');
+        $('.text-box').click(function(){
+            window.location = $(this).data('href');
             return false;
         });
         $('[data-toggle="tooltip"]').tooltip();

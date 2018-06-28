@@ -1,3 +1,54 @@
 // Place all the styles related to the Posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.like-text {
+  display: block;
+  float: left;
+  color: #FC5B1F;
+  margin-right: 8px;
+}
+
+img.like-icon {
+  display: block;
+  float: left;
+  width: 12px;
+  height: 12px;
+  padding-top:1px;
+  margin-right: 4px;
+}
+
+span.nickname {
+  font-size: 13px;
+  color: #30AEB4;
+}
+
+.info {
+  display: block;
+  /*margin: 0 0 12px 0;*/
+  margin: 0 0 8px 0;
+  padding: 0 0 0 0;
+  font-size: 12px;
+  /*height: 14px;*/
+  color: #aaaaaa;
+  text-shadow: none;
+  font-weight: normal;
+  overflow: auto;
+  word-break: break-all;
+  text-overflow: ellipsis;
+}
+
+
+li {
+  list-style:none;
+  border-bottom: 1px solid #ededed;
+}
+
+.text-box h1{
+  display: block;
+  margin: 6px 0 4px 0;
+  padding: 0 0 0 0;
+  font-size: 16px;
+  color: #4d4d4d;
+  text-shadow: none;
+  font-weight: bold;
+}
