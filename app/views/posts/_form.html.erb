@@ -6,6 +6,11 @@
     <%= f.input :context %>
   </div>
 
+  <div class="field">
+    <%= f.label :image %><br>
+    <%= f.file_field :image, accept: 'image/png,image/gif,image/jpeg' %>
+  </div>
+
   <div class="form-actions">
     <%= f.button :submit %>
   </div>
