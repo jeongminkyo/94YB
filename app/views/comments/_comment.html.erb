@@ -1,5 +1,15 @@
-<li id="comment_<%=comment.id %>">
-  <%= comment.body %>,
-  <%= time_ago_in_words(comment.created_at) %> ago
+<li id="comment_<%=comment.id %>" class="reply-content">
+  <div class="info-box">
+    <div class="username">
+      <%= User.find(comment.user_id).display_name %>
+    </div>
+    <div class="date">
+      <%= comment.created_at.to_time %>
+    </div>
+  </div>
+
+  <div class="content-text" id="reply-content-text-<%= comment.id %>">
+    <%= simple_format(comment.body) %>
+  </div>
   <%= link_to '삭제', [comment.post, comment], method: :delete, remote: true, data: { confirm: "Are you sure?" } %>
 </li>

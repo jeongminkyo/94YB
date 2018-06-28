@@ -5,6 +5,7 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: :destroy
 
   def create
+    params[:comment][:user_id] = current_user.id
     @comment = @post.comments.new(comment_params)
     @comment.save
   end
@@ -24,6 +25,6 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:body)
+    params.require(:comment).permit(:body, :user_id)
   end
 end

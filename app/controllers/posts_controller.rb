@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.joins(:user).select('posts.id, posts.title, posts.context, display_name, posts.created_at')
+    @posts = Post.joins(:user).select('posts.id, posts.title, posts.context, display_name, posts.created_at').order('id desc')
   end
 
   # GET /posts/1

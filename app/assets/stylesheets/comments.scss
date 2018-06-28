@@ -1,19 +1,58 @@
 // Place all the styles related to the comments controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.comments {
-  border:1px solid #eaeaea;
-  border-radius: 5px;
-  background-color: #ededed;
-  margin:1em 0;
-  padding:1em;
-  h2 {
-    margin:0 0 .5em;
-  }
-  ul {
-    padding-left: 1.5em;
-    li {
-      margin-bottom: .5em
-    }
-  }
+
+li.reply-content {
+  display: block;
+  position: relative;
+  padding: 12px;
+  border-bottom: 1px solid #F6F7F6;
+  width: 345px;
+}
+
+
+.info-box {
+  display: block;
+  padding: 0px 0 0 0;
+  min-height: 12px;
+}
+.username {
+  display: block;
+  float: left;
+  margin: 0 0 0 0;
+  font-weight: normal;
+  text-shadow: none;
+  font-size: 13px;
+  color: #30AEB4;
+}
+
+.date {
+  display: block;
+  float: left;
+  margin: 0 0 0 10px;
+  font-weight: normal;
+  text-shadow: none;
+  font-size: 12px;
+  line-height: 13px;
+  color: #9A9A9A;
+}
+
+.content-text {
+  display: block;
+  margin: 6px 0 12px 0;
+  padding: 0 0 0 0;
+  width: 100%;
+  min-height: 12px;
+  font-weight: normal;
+  text-shadow: none;
+  font-size: 14px;
+  color: #4D4D4D;
+}
+
+.reply-list {
+  display: block;
+  /*margin: 0 15px 0 15px;*/
+  margin: 0 0px 0 0px;
+  padding: 0 0 0 0;
+  overflow: auto;
 }
