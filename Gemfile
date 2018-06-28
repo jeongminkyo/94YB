@@ -55,6 +55,11 @@ gem 'fullcalendar-rails'
 gem 'momentjs-rails'
 gem 'bootstrap-daterangepicker-rails'
 
+#file upload
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+gem 'mini_magick'
+gem 'fog-aws'
+
 # Rspec
 group :development, :test do
   gem 'rspec-rails'             # rails 지원하는 rspec
