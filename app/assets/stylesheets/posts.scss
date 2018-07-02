@@ -52,3 +52,50 @@ li {
   text-shadow: none;
   font-weight: bold;
 }
+
+.button {
+  display: block;
+  float: right;
+  text-decoration: none;
+  padding-left: 16px;
+  padding-right: 16px;
+  color: #4D4D4D;
+  font-family: 'godo_mregular', 'NanumGothic', 'Malgun Gothic', 'AppleGothic', 'Dotum', sans-serif !important;
+  padding-top: 6px;
+  padding-bottom: 4px;
+  text-shadow: none;
+  text-align: center;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 21px;
+  vertical-align: middle;
+  border: 1px solid #CBCBCC;
+  border-radius: 3px;
+  margin: 0 8px 0 0;
+  height: 21px;
+}
+
+.float-right {
+  float: right;
+  margin-left: 8px;
+}
+
+.icon {
+  display: inline-block;
+  float: left;
+  margin: 2px 4px 0 0;
+  padding: 0 0 0 0;
+  width: 13.5px;
+  height: 13.5px;
+}
+
+.orange {
+  color: #FC5B1F;
+}
+
+.letter-button-box {
+  display: block;
+  margin: 9px 16px 18px 16px;
+  padding: 0 0 0 0;
+  overflow: auto;
+}

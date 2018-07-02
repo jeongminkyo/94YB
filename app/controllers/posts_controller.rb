@@ -11,6 +11,10 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     @post_attachments = @post.post_attachments.all
+    @post_like = PostLike.where(post_id: params[:id], like: true).count
+    @post_dislike = PostLike.where(post_id: params[:id], like: false).count
+    @current_user_like = PostLike.where(post_id: params[:id], like: true, user_id: current_user.id)
+    @current_user_dislike = PostLike.where(post_id: params[:id], like: false, user_id: current_user.id)
   end
 
   # GET /posts/new

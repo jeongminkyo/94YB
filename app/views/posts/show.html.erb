@@ -23,6 +23,41 @@
 
 </p>
 
+<div class="letter-button-box">
+  <% if @current_user_like.present? %>
+    <%= form_tag delete_post_like_path(:post_id => params[:id]), method: :delete do %>
+      <input type="submit", value="like", name="like" class="button float-right" style="color: blue">
+    <% end %>
+  <% else %>
+    <%= form_tag post_like_path(:post_id => params[:id]), method: :post do %>
+      <input type="submit", value="like", name="like" class="button float-right">
+    <% end %>
+  <% end %>
+  <% if @current_user_dislike.present? %>
+    <%= form_tag delete_post_like_path(:post_id => params[:id]), method: :delete do %>
+      <input type="submit", value="dislike", name="like" class="button float-right" style="color: red">
+    <% end %>
+  <% else %>
+    <%= form_tag post_like_path(:post_id => params[:id]), method: :post do %>
+      <input type="submit", value="dislike", name="like" class="button float-right">
+    <% end %>
+  <% end %>
+
+
+
+
+
+
+  <a href="#" onclick="$('#reply-like-<%= @post.id %>-form').submit();" data-ajax="false" class="button float-right">
+    <img src="http://akamai-cdn.cashslide.kr/comm_sys_fl_brd_icon_like.png" class="icon" />
+    <span class="orange"><%=@post_like %></span>
+  </a>
+  <a href="#" onclick="$('#reply-dislike-<%= @post.id %>-form').submit();" data-ajax="false" class="button float-right">
+    <img src="http://akamai-cdn.cashslide.kr/comm_sys_fl_brd_icon_dislike.png" class="icon" />
+    <span class="blue"><%=@post_dislike %></span>
+  </a>
+</div>
+
 <%= render 'comments/comments' %>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |

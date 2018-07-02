@@ -5,6 +5,11 @@ Rails.application.routes.draw do
     get 'register/info' => :info
     post 'register/info'=> :create, as: 'register'
   end
+
+  controller :post_like do
+    post 'post_like' => :create
+    delete 'post_like/:id' => :destroy, as: 'delete_post_like'
+  end
   devise_for :users, :controllers => { omniauth_callbacks: 'user/omniauth_callbacks' }
   resources :calendars
   resources :posts do
