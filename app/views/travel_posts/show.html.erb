@@ -12,7 +12,15 @@
 
 <p>
   <strong>User:</strong>
-  <%= @travel_post.user_id %>
+  <%= User.find(@travel_post.user_id).display_name %>
+</p>
+
+<p>
+  <strong>사진:</strong>
+  <% @travel_post_attachments.each do |post| %>
+    <%= image_tag("#{post.s3.main}") %>
+  <% end %>
+
 </p>
 
 <%= render 'travel_comments/travel_comments' %>

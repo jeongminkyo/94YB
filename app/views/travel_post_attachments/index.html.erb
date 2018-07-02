@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Travel Post Attachments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Travel post</th>
+      <th>S3</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @travel_post_attachments.each do |travel_post_attachment| %>
+      <tr>
+        <td><%= travel_post_attachment.travel_post_id %></td>
+        <td><%= travel_post_attachment.s3 %></td>
+        <td><%= link_to 'Show', travel_post_attachment %></td>
+        <td><%= link_to 'Edit', edit_travel_post_attachment_path(travel_post_attachment) %></td>
+        <td><%= link_to 'Destroy', travel_post_attachment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Travel Post Attachment', new_travel_post_attachment_path %>

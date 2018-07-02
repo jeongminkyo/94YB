@@ -10,11 +10,14 @@ class TravelPostsController < ApplicationController
   # GET /travel_posts/1
   # GET /travel_posts/1.json
   def show
+    @travel_post_attachments = @travel_post.travel_post_attachments.all
   end
 
   # GET /travel_posts/new
   def new
     @travel_post = TravelPost.new
+    @travel_post_attachment = @travel_post.travel_post_attachments.build
+
   end
 
   # GET /travel_posts/1/edit
@@ -29,6 +32,9 @@ class TravelPostsController < ApplicationController
 
     respond_to do |format|
       if @travel_post.save
+        params[:travel_post_attachments]['s3'].each do |a|
+          @travel_post_attachment = @travel_post.travel_post_attachments.create!(:s3 => a, :travel_post_id => @travel_post.id)
+        end
         format.html { redirect_to @travel_post, notice: 'Travel post was successfully created.' }
         format.json { render :show, status: :created, location: @travel_post }
       else
@@ -70,6 +76,7 @@ class TravelPostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def travel_post_params
-      params.require(:travel_post).permit(:title, :context, :user_id)
+      params.require(:travel_post).permit(:title, :context, :user_id, travel_post_attachments_attributes:
+          [:id, :travel_post_id, :s3])
     end
 end

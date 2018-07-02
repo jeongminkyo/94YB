@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :travel_post_attachments
   resources :travel_posts do
     resources :travel_comments, only: [:create, :destroy]
   end
