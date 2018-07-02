@@ -1,0 +1,6 @@
+<% if @travel_comment.errors.size == 0 %>
+$('<%=j render @travel_comment %>').appendTo($("#comments_list_<%=@travel_post.id %>")).hide().fadeIn('fast');
+$("#comments_form_<%=@travel_post.id %> form")[0].reset();
+<% else %>
+alert("Please submit after commenting...");
+<% end %>

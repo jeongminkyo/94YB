@@ -1,0 +1,2 @@
+module TravelPostsHelper
+end

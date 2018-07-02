@@ -1,0 +1,9 @@
+<ul id="comments_list_<%=@travel_post.id%>">
+  <% if @travel_post.travel_comments.size > 0 %>
+    <%= render @travel_post.travel_comments %>
+  <% else %>
+    <li>
+      No comments
+    </li>
+  <% end %>
+</ul>

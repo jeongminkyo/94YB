@@ -1,0 +1,11 @@
+<div class="comments">
+  <div class="comment_header">
+    <h2>Comments:</h2>
+  </div>
+  <div class="comments_list">
+    <%= render 'travel_comments/list' %>
+  </div>
+  <div class='comments_form'>
+    <%= render 'travel_comments/form', comment: @travel_post.travel_comments.new %>
+  </div>
+</div>

@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  resources :travel_posts do
+    resources :travel_comments, only: [:create, :destroy]
+  end
   resources :post_attachments
   controller :register do
     get 'register/info' => :info

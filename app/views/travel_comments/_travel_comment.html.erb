@@ -1,0 +1,5 @@
+<li id="comment_<%=travel_comment.id %>">
+  <%= travel_comment.body %>,
+  <%= time_ago_in_words(travel_comment.created_at) %> ago
+  <%= link_to '삭제', [travel_comment.travel_post, travel_comment], method: :delete, remote: true, data: { confirm: "Are you sure?" } %>
+</li>
