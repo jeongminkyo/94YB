@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :cashes
   resources :travel_post_attachments
   resources :travel_posts do
     resources :travel_comments, only: [:create, :destroy]
@@ -20,6 +21,7 @@ Rails.application.routes.draw do
     post 'travel_post_like' => :create
     delete 'travel_post_like/:id' => :destroy, as: 'delete_travel_post_like'
   end
+
   devise_for :users, :controllers => { omniauth_callbacks: 'user/omniauth_callbacks' }
   resources :calendars
   resources :posts do

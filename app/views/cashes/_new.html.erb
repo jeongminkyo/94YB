@@ -1,0 +1,33 @@
+<div class="modal fade" id="new_event">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">New Event</h4>
+      </div>
+      <div class="modal-body">
+        <div>
+          <%= form_tag cashes_path, mothod: :post do %>
+            <label>날짜</label>
+            <input type="text" name="date" id="date">
+            <label>설명</label>
+            <input name="description"/>
+            <label>입금</label>
+            <input name="income"/>
+            <label>출금</label>
+            <input name="expenditure"/>
+            <button type="submit">추가</button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    $(function() {
+        $( "#date" ).datepicker({
+            format: 'yyyy-mm-dd',
+        });
+    });
+</script>

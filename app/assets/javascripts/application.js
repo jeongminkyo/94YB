@@ -18,5 +18,5 @@
 //= require moment
 //= require fullcalendar
 //= require daterangepicker
-
+//= require bootstrap-datepicker
 
