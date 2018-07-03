@@ -23,6 +23,27 @@
 
 </p>
 
+<div class="letter-button-box">
+  <% if @current_user_like.present? %>
+    <%= form_tag delete_travel_post_like_path(:travel_post_id => params[:id]), method: :delete do %>
+      <input type="submit" value="like" name="like" class="button float-right" style="color: blue">
+    <% end %>
+  <% else %>
+    <%= form_tag travel_post_like_path(:travel_post_id => params[:id]), method: :post do %>
+      <input type="submit" value="like" name="like" class="button float-right">
+    <% end %>
+  <% end %>
+  <% if @current_user_dislike.present? %>
+    <%= form_tag delete_travel_post_like_path(:travel_post_id => params[:id]), method: :delete do %>
+      <input type="submit" value="dislike" name="like" class="button float-right" style="color: red">
+    <% end %>
+  <% else %>
+    <%= form_tag travel_post_like_path(:travel_post_id => params[:id]), method: :post do %>
+      <input type="submit" value="dislike" name="like" class="button float-right">
+    <% end %>
+  <% end %>
+</div>
+
 <%= render 'travel_comments/travel_comments' %>
 
 <%= link_to 'Edit', edit_travel_post_path(@travel_post) %> |
