@@ -4,7 +4,11 @@ class TravelPostsController < ApplicationController
   # GET /travel_posts
   # GET /travel_posts.json
   def index
-    @travel_posts = TravelPost.all
+    page = params[:page].blank? ? 1 : params[:page]
+
+    where_clause = TravelPost.make_where_clause(params)
+
+    @travel_posts = TravelPost.find_travel_post_list(page, where_clause)
   end
 
   # GET /travel_posts/1
@@ -37,8 +41,10 @@ class TravelPostsController < ApplicationController
 
     respond_to do |format|
       if @travel_post.save
-        params[:travel_post_attachments]['s3'].each do |a|
-          @travel_post_attachment = @travel_post.travel_post_attachments.create!(:s3 => a, :travel_post_id => @travel_post.id)
+        if params[:travel_post_attachments].present?
+          params[:travel_post_attachments]['s3'].each do |a|
+            @travel_post_attachment = @travel_post.travel_post_attachments.create!(:s3 => a, :travel_post_id => @travel_post.id)
+          end
         end
         format.html { redirect_to @travel_post, notice: 'Travel post was successfully created.' }
         format.json { render :show, status: :created, location: @travel_post }
