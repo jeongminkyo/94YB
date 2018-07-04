@@ -1,6 +1,22 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Posts</h1>
+
+<div class="col-md-1">
+  <%= link_to '<i class="fa fa-1"></i> 전체보기'.html_safe, posts_path, remote: false, class: 'btn btn-default', 'data-toggle': 'tooltip', 'data-html': true %>
+</div>
+<div class="col-md-3">
+  <%= form_tag posts_path, method: :get, class: 'form-inline search-user-form' do %>
+    <%= select_tag 'search_by', options_for_select(['제목', '제목 + 내용', '작성자'], '제목'), class: 'form-control align-center' %>
+    <div class="input-group align-center">
+      <%= text_field_tag 'search_value', nil, class: 'form-control', placeholder: '쿠폰 정보 검색' %>
+      <div class="input-group-btn">
+        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+      </div>
+    </div>
+  <% end %>
+</div>
+
 <% @posts.each do |post| %>
   <li>
     <div class="text-box" id="<%= dom_id(post) %>"  class="linkable" data-href="<%= posts_path+'/'+post.id.to_s %>">

@@ -4,7 +4,15 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.joins(:user).select('posts.id, posts.title, posts.context, display_name, posts.created_at').order('id desc')
+    page = params[:page].blank? ? 1 : params[:page]
+
+    where_clause = Post.make_where_clause(params)
+
+    @posts = Post.find_post_list(page, where_clause)
+
+    respond_to do |format|
+      format.html
+    end
   end
 
   # GET /posts/1

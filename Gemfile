@@ -61,6 +61,9 @@ gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem 'mini_magick'
 gem 'fog-aws'
 
+# 페이징
+gem 'kaminari'
+
 # Rspec
 group :development, :test do
   gem 'rspec-rails'             # rails 지원하는 rspec
