@@ -33,7 +33,11 @@
     </div>
   </li>
 <% end %>
-
+<div class="col-md-6">
+  <div style="margin-top: 8px; text-align: center; ">
+    <%= paginate @posts %>
+  </div>
+</div>
 
 <%= link_to 'New Post', new_post_path %>
 
