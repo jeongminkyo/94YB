@@ -7,5 +7,11 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Wallet.create(current_money: 0, whole_money: 0)
+
+role_list = ['user', 'member', 'manager', 'admin']
+role_list.each do |role|
+  Role.where(name: role).first_or_create
+end
+
 admin_user = User.create( email: 'admin@email.com', password: 'tlsrnd13!@', display_name: '관리자')
 admin_user.add_role :admin

@@ -59,6 +59,10 @@ class User < ApplicationRecord
     has_role?(:member)
   end
 
+  def is_manager?
+    has_role?(:manager)
+  end
+
   private
 
   def set_default_role
