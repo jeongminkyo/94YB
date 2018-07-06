@@ -1,4 +1,7 @@
 class TravelPost < ApplicationRecord
+  resourcify
+  include Authority::Abilities
+
   has_many :travel_comments, dependent: :destroy
   has_many :travel_post_attachments
   has_many :travel_post_likes

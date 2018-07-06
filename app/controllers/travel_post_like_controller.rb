@@ -1,6 +1,7 @@
 class TravelPostLikeController < ApplicationController
   before_action :authenticate_user!
 
+
   def create
     param_like = params[:like]
     post_id = params[:travel_post_id]

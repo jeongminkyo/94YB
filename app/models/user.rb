@@ -1,10 +1,14 @@
 class User < ApplicationRecord
+  rolify
+  include Authority::UserAbilities
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :post
   has_many :post_likes
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+
+  after_create :set_default_role
 
   def self.find_for_oauth(auth, signed_in_resource = nil)
     # user와 identity가 nil이 아니라면 받는다
@@ -42,4 +46,23 @@ class User < ApplicationRecord
   def email_required?
     false
   end
+
+  def is_admin?
+    has_role?(:admin)
+  end
+
+  def is_user?
+    has_role?(:user)
+  end
+
+  def is_member?
+    has_role?(:member)
+  end
+
+  private
+
+  def set_default_role
+    add_role :user
+  end
+
 end

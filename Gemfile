@@ -47,6 +47,10 @@ gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-naver'
 
+#권한설정
+gem 'rolify'
+gem 'authority'
+
 # 환경변수
 gem 'figaro'
 

@@ -11,6 +11,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    authorize_action_for @comment
     @comment.destroy
   end
 

@@ -1,6 +1,12 @@
 class CalendarsController < ApplicationController
   before_action :set_calendar, only: [:edit, :update, :destroy]
   before_action :authenticate_user!
+  before_filter(only: [:index, :show, :edit, :update, :destroy]) do
+    user = User.find_by_id(current_user.id)
+    unless user.is_member? || user.is_admin?
+      redirect_to root_path, :flash => { :error => '권한이 없습니다' }
+    end
+  end
 
   def index
     calendars = Calendar.all

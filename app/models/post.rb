@@ -1,4 +1,6 @@
 class Post < ApplicationRecord
+  resourcify
+  include Authority::Abilities
   belongs_to :user
   has_many :comments, dependent: :destroy
   has_many :post_attachments
