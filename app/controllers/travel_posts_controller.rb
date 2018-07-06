@@ -9,17 +9,13 @@ class TravelPostsController < ApplicationController
     where_clause = TravelPost.make_where_clause(params)
 
     @travel_posts = TravelPost.find_travel_post_list(page, where_clause)
+    @current_user_like = TravelPostLike.where(travel_post_id: params[:id], like: true, user_id: current_user.id)
+    @current_user_dislike = TravelPostLike.where(travel_post_id: params[:id], like: false, user_id: current_user.id)
   end
 
   # GET /travel_posts/1
   # GET /travel_posts/1.json
   def show
-    @travel_post_attachments = @travel_post.travel_post_attachments.all
-    @post_like = TravelPostLike.where(travel_post_id: params[:id], like: true).count
-    @post_dislike = TravelPostLike.where(travel_post_id: params[:id], like: false).count
-    @current_user_like = TravelPostLike.where(travel_post_id: params[:id], like: true, user_id: current_user.id)
-    @current_user_dislike = TravelPostLike.where(travel_post_id: params[:id], like: false, user_id: current_user.id)
-
   end
 
   # GET /travel_posts/new

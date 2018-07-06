@@ -12,8 +12,8 @@
       </p>
 
       <p>
-        <strong>Context:</strong>
-        <%= travel_post.context %>
+        <strong>Like:</strong>
+        <%= travel_post.travel_post_likes.count %>
       </p>
 
       <p>
@@ -21,8 +21,60 @@
         <%= User.find(travel_post.user_id).display_name %>
       </p>
 
+      <p>
+        <strong>Context:</strong>
+        <%= travel_post.context %>
+      </p>
 
-      <%= link_to 'Show', travel_post %>
+      <p>
+        <strong>사진:</strong>
+        <% travel_post.travel_post_attachments.all.each do |post| %>
+          <%= image_tag("#{post.s3.main}") %>
+        <% end %>
+
+      </p>
+
+      <div class="letter-button-box">
+        <% if travel_post.travel_post_likes.where(travel_post_id: travel_post.id, like: true, user_id: current_user.id).present? %>
+          <%= form_tag delete_travel_post_like_path(:id => travel_post.id), method: :delete do %>
+            <input type="submit" value="like" name="like" class="button float-right" style="color: blue">
+          <% end %>
+        <% else %>
+          <%= form_tag travel_post_like_path(:travel_post_id => travel_post.id), method: :post do %>
+            <input type="submit" value="like" name="like" class="button float-right">
+          <% end %>
+        <% end %>
+        <% if travel_post.travel_post_likes.where(travel_post_id: travel_post.id, like: false, user_id: current_user.id).present? %>
+          <%= form_tag delete_travel_post_like_path(:id => travel_post.id), method: :delete do %>
+            <input type="submit" value="dislike" name="like" class="button float-right" style="color: red">
+          <% end %>
+        <% else %>
+          <%= form_tag travel_post_like_path(:travel_post_id => travel_post.id), method: :post do %>
+            <input type="submit" value="dislike" name="like" class="button float-right">
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="comments">
+        <div class="comment_header">
+          <h2>Comments:</h2>
+        </div>
+        <div class="comments_list">
+          <ul id="comments_list_<%=travel_post.id%>">
+            <% if travel_post.travel_comments.size > 0 %>
+              <%= render travel_post.travel_comments %>
+            <% else %>
+              <li>
+                No comments
+              </li>
+            <% end %>
+          </ul>
+        </div>
+        <div class='comments_form'>
+
+          <%= render 'travel_comments/form', comment: travel_post.travel_comments.new %>
+        </div>
+      </div>
       <%= link_to 'Edit', edit_travel_post_path(travel_post) %>
       <%= link_to 'Destroy', travel_post, method: :delete, data: { confirm: 'Are you sure?' } %>
     </div>
