@@ -22,10 +22,13 @@ Rails.application.routes.draw do
     delete 'travel_post_like/:id' => :destroy, as: 'delete_travel_post_like'
   end
 
-  devise_for :users, :controllers => { omniauth_callbacks: 'user/omniauth_callbacks', registrations: 'user/registrations' }
   resources :calendars
   resources :posts do
     resources :comments, only: [:create, :destroy]
   end
+
+  devise_for :users, :controllers => { omniauth_callbacks: 'user/omniauth_callbacks', registrations: 'user/registrations' }
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
   root 'welcome#index'
 end
