@@ -35,7 +35,7 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-#admin
+# admin
 gem 'rails_admin'
 
 # bootstrap
@@ -53,8 +53,6 @@ gem 'omniauth-naver'
 #권한설정
 gem 'rolify'
 gem 'authority'
-
-
 
 # 환경변수
 gem 'figaro'
