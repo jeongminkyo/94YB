@@ -1,3 +1,11 @@
+<style>
+  .btn-sm {
+    background-color: transparent;
+    border: 1px solid lightgray;
+    padding: 8px 20px;
+    margin-left: 15px;
+  }
+</style>
 <h3>회비 내역</h3>
 <span style="font-size: 1.5em; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;">총 회비 : <%= number_with_delimiter(@wallet) %></span>
 <div class="table-responsive form-inline">
@@ -24,14 +32,14 @@
   </table>
 </div>
 
-<button class="btn">추가</button>
+<button class="add_btn btn-sm btn-default">추가</button>
 
 <br>
 
 <div id="remote_cash_container"></div>
 
 <script>
-    $('.btn').click(function(event) {
+    $('.add_btn').click(function(event) {
         $.getScript('<%= new_cash_path %>', function() {
 
         });

@@ -20,7 +20,7 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand" href="index.html">YB94 술친게이들</a>
+        <a class="navbar-brand" href="/">YB94 술친게이들</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fa fa-bars"></i>
@@ -42,9 +42,15 @@
             <li class="nav-item">
               <a class="nav-link" href="/calendars">schedule</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/users/sign_in">login</a>
-            </li>
+            <% if user_signed_in? %>
+              <li class="nav-item">
+                <%= link_to 'log out', destroy_user_session_path, method: :delete, data: { confirm: "Are you sure?" }, class:'nav-link' %>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <a class="nav-link" href="/users/sign_in">login</a>
+              </li>
+            <% end %>
           </ul>
         </div>
       </div>
