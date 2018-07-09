@@ -6,6 +6,12 @@
     margin-left: 15px;
   }
 </style>
+<% flash.each do |type, message| %>
+  <div class="alert <%= bootstrap_class_for(type) %> alert-dismissable fade in">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <p class="notice"><%= message %></p>
+  </div>
+<% end %>
 <h3>회비 내역</h3>
 <span style="font-size: 1.5em; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;">총 회비 : <%= number_with_delimiter(@wallet) %></span>
 <div class="table-responsive form-inline">

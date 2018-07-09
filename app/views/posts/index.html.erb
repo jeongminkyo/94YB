@@ -1,24 +1,39 @@
-<p id="notice"><%= notice %></p>
+<style>
+  .btn-sm {
+    background-color: transparent;
+    border: 1px solid lightgray;
+    padding: 8px 10px;
 
-<h1>Posts</h1>
+    border-radius: 0.25rem;
+  }
+</style>
+<% flash.each do |type, message| %>
+  <div class="alert <%= bootstrap_class_for(type) %> alert-dismissable fade in">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <p class="notice"><%= message %></p>
+  </div>
+<% end %>
+<h3>자유게시판</h3>
 
-<div class="col-md-1">
-  <%= link_to '<i class="fa fa-1"></i> 전체보기'.html_safe, posts_path, remote: false, class: 'btn btn-default', 'data-toggle': 'tooltip', 'data-html': true %>
+<div class="col-xs-1" style="display: inline-block">
+  <%= link_to '<i class="fa fa-1"></i> 전체보기'.html_safe, posts_path, remote: false, class: 'btn btn-sm btn-default', 'data-toggle': 'tooltip', 'data-html': true %>
 </div>
-<div class="col-md-3">
-  <%= form_tag posts_path, method: :get, class: 'form-inline search-user-form' do %>
-    <%= select_tag 'search_by', options_for_select(['제목', '제목 + 내용', '작성자'], '제목'), class: 'form-control align-center' %>
-    <div class="input-group align-center">
-      <%= text_field_tag 'search_value', nil, class: 'form-control', placeholder: '쿠폰 정보 검색' %>
+<div class="col-xs-1" style="display: inline-block">
+  <%= form_tag posts_path, method: :get, class: 'form-inline' do %>
+    <div class="col-xs-1">
+      <%= select_tag 'search_by', options_for_select(['제목', '제목 + 내용', '작성자'], '제목'), class: 'form-control align-center ' %>
+    </div>
+    <div class="input-group align-center col-xs-1">
+      <%= text_field_tag 'search_value', nil, class: 'form-control', placeholder: '정보 검색' %>
       <div class="input-group-btn">
-        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+        <button class="btn btn-sm btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
       </div>
     </div>
   <% end %>
 </div>
 
 <% @posts.each do |post| %>
-  <li>
+  <li class="post_li">
     <div class="text-box" id="<%= dom_id(post) %>"  class="linkable" data-href="<%= posts_path+'/'+post.id.to_s %>">
       <h1><%= truncate(post.title, length: 40) %></h1>
       <div class="info">
@@ -39,7 +54,7 @@
   </div>
 </div>
 
-<%= link_to 'New Post', new_post_path %>
+<%= link_to 'New', new_post_path, class: 'btn-sm', style: 'margin-left:5px' %>
 
 <script>
     $(document).ready(function(){

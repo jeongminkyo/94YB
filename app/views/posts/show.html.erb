@@ -29,7 +29,7 @@
 <div class="letter-button-box">
   <% if @current_user_like.present? %>
     <%= form_tag delete_post_like_path(:post_id => params[:id]), method: :delete do %>
-      <input type="submit", value="like", name="like" class="button float-right" style="color: blue">
+      <input type="submit", value="like", name="like" class="button float-right">
     <% end %>
   <% else %>
     <%= form_tag post_like_path(:post_id => params[:id]), method: :post do %>

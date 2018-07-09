@@ -40,6 +40,10 @@ span.nickname {
 
 li {
   list-style:none;
+}
+
+.post_li {
+  list-style:none;
   border-bottom: 1px solid #ededed;
 }
 
@@ -61,8 +65,8 @@ li {
   padding-right: 16px;
   color: #4D4D4D;
   font-family: 'godo_mregular', 'NanumGothic', 'Malgun Gothic', 'AppleGothic', 'Dotum', sans-serif !important;
-  padding-top: 6px;
-  padding-bottom: 4px;
+  padding-top: 3px;
+  padding-bottom: 3px;
   text-shadow: none;
   text-align: center;
   font-weight: normal;
@@ -72,7 +76,7 @@ li {
   border: 1px solid #CBCBCC;
   border-radius: 3px;
   margin: 0 8px 0 0;
-  height: 21px;
+  height: 26px;
 }
 
 .float-right {
