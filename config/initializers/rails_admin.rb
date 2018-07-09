@@ -2,6 +2,10 @@ RailsAdmin.config do |config|
 
   ### Popular gems integration
 
+  config.authorize_with do
+    redirect_to main_app.root_path, :flash => { :error => '권한이 없습니다' } unless current_user.is_admin?
+  end
+
   ## == Devise ==
   config.authenticate_with do
     warden.authenticate! scope: :user
