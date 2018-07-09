@@ -3,9 +3,8 @@
 *= require fullcalendar
 *= require daterangepicker-bs3
 *= require bootstrap-datepicker
+*= require blog_bootstrap
+*= require blog
 */
-@import "bootstrap-sprockets";
-@import "bootstrap";
-@import 'comments';
-@import 'posts';
-@import 'travel_comments';
+
+

@@ -1,29 +1,28 @@
-<h1>Cashes</h1>
-<h1>회 비</h1>
-<%= @wallet %>
-<table>
-  <thead>
+<h3>회비 내역</h3>
+<span style="font-size: 1.5em; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;">총 회비 : <%= number_with_delimiter(@wallet) %></span>
+<div class="table-responsive form-inline">
+  <table class="table table-hover table-condensed" style="margin-top: 30px">
+    <thead>
     <tr>
-      <th>date</th>
-      <th>description</th>
-      <th>Income</th>
-      <th>Expenditure</th>
-      <th colspan="3"></th>
+      <th>날짜</th>
+      <th>설명</th>
+      <th>수입</th>
+      <th>지출</th>
     </tr>
-  </thead>
+    </thead>
 
-  <tbody>
+    <tbody>
     <% @cashes.each do |cash| %>
       <tr>
         <td><%= cash.date %></td>
         <td><%= cash.description %></td>
-        <td><%= cash.income %></td>
-        <td><%= cash.expenditure %></td>
-        <td><%= link_to 'Destroy', cash, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= number_with_delimiter(cash.income) %></td>
+        <td><%= number_with_delimiter(cash.expenditure) %></td>
       </tr>
     <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>
 
 <button class="btn">추가</button>
 
