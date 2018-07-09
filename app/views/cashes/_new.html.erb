@@ -2,21 +2,21 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
+        <h4 class="modal-title">새 내역 추가</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">New Event</h4>
       </div>
       <div class="modal-body">
         <div>
           <%= form_tag cashes_path, mothod: :post do %>
             <label>날짜</label>
-            <input type="text" name="date" id="date">
+            <input type="text" name="date" id="date" class="form-control">
             <label>설명</label>
-            <input name="description"/>
+            <input name="description" class="form-control"/>
             <label>입금</label>
-            <input name="income"/>
+            <input name="income" class="form-control"/>
             <label>출금</label>
-            <input name="expenditure"/>
-            <button type="submit">추가</button>
+            <input name="expenditure" class="form-control"/>
+            <button type="submit" class="btn-sm" style="margin-top:10px">추가</button>
           <% end %>
         </div>
       </div>
