@@ -1,4 +1,10 @@
 <div class="container">
+  <% flash.each do |type, message| %>
+    <div class="alert <%= bootstrap_class_for(type) %> alert-dismissable fade in">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <p class="notice"><%= message %></p>
+    </div>
+  <% end %>
   <div class="form-group" style="margin-top: 50px; text-align: center">
     <% if user_signed_in? %>
       <p> 현재 로그인된 유저의 이메일: <%= current_user.email %> </p>

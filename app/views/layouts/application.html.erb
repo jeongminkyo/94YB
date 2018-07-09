@@ -55,13 +55,7 @@
         </div>
       </div>
     </nav>
-    <% flash.each do |type, message| %>
-      <div class="alert <%= bootstrap_class_for(type) %> alert-dismissable fade in">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <p class="notice"><%= message %></p>
-      </div>
-    <% end %>
-    <header class="masthead" style="background-image: url(assets/home-bg.jpg)">
+    <header class="masthead" style="background-image: url('assets/home-bg.jpg')">
       <div class="overlay"></div>
       <div class="container">
         <div class="row">
