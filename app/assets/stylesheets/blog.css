@@ -391,6 +391,10 @@ footer .copyright {
     text-align: center;
 }
 
+.mx_auto_comment {
+    margin-right: auto !important;
+}
+
 /*.btn {*/
     /*font-size: 14px;*/
     /*font-weight: 800;*/

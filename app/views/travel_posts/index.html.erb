@@ -1,38 +1,185 @@
-<p id="notice"><%= notice %></p>
+<style>
+  .button {
+    background: white;
+    border: 1px solid lightgray;
+    margin-top: 10px;
+  }
 
-<h1>Travel Posts</h1>
+  .post_heading {
+    display: block;
+    white-space: normal;
+    padding-top: 4px;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 29px;
+    letter-spacing: -1px;
+    word-break: break-word;
+  }
+  .blogview_tit {
+    padding-top: 23px;
+    margin: 0 32px;
+    text-align: center;
+  }
+  .by_blog {
+    display: block;
+    height: 18px;
+    position: static;
+    padding-top: 8px;
+    font-style: normal;
+    font-weight: normal;
+  }
+  .txt_by {
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    height: 18px;
+    padding: 0 26px;
+    font-size: 12px;
+    color: #9199A4;
+  }
 
+  .blogview_info {
+    height: 37px;
+    border-top: 1px solid #9199a4;
+    border-bottom: 1px solid #ecf0f5;
+    margin: 29px 20px 0;
+  }
+    .txt_date {
+      font-size: 12px;
+      line-height: 38px;
+      color: #9199A4;
+    }
+  .blogview_info .sympathy_wrap {
+    height: auto;
+    padding: 0;
+  }
+  .sympathy_wrap {
+    float: right;
+    height: 16px;
+    padding: 3px 1px 0 0;
+  }
+  .info_sym {
+    padding: 10px 0;
+    margin-left: 14px;
+    line-height: 18px;
+    float: left;
+    font-size: 12px;
+    color: #9199a4;
+    vertical-align: top;
+  }
+
+  .ico_comm {
+    display: inline-block;
+    overflow: hidden;
+    background: url(//t1.daumcdn.net/tistory_admin/static/mobile/m320/ico_comm2.png) no-repeat 0 0;
+    text-indent: -9999px;
+    vertical-align: top;
+  }
+  .ico_comment {
+    width: 18px;
+    height: 16px;
+    margin: 1px 4px 0 0;
+    background-position: -40px -46px;
+  }
+  .ico_heart {
+    width: 18px;
+    height: 15px;
+    margin: 1px 2px 0 0;
+    background-position: 0 -46px;
+  }
+  .blogview_content {
+    padding: 0 20px 30px;
+    margin: 34px auto 0;
+    max-width: 800px;
+    font-size: 16px;
+    line-height: 27px;
+    color: #303030;
+    word-break: break-word;
+    overflow: hidden;
+  }
+  .blog_p {
+    box-sizing: border-box;
+    margin: 0px 0px 9px;
+    color: rgb(92, 92, 92);
+    font-family: "Malgun Gothic", NanumBarunGothic, NanumGothic, "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    text-align: justify;
+    line-height: 1.5;
+  }
+  .container_postbtn {
+    padding: 35px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .container_postbtn .postbtn_like {
+    float: left;
+    border-radius: 1px;
+    border: 1px solid #959595;
+    border-color: rgba(149,149,149,0.25);
+  }
+  .like_btn {
+    float: left;
+  }
+  .container_postbtn .postbtn_like .ico_postbtn {
+    width: 16px;
+    height: 16px;
+    margin-top: 11px;
+  }
+  .txt_like {
+    font-size: 14px;
+    color: #333;
+  }
+  .ico_like {
+     background-position: 0 0;
+   }
+
+</style>
 
 <div>
   <% @travel_posts.each do |travel_post| %>
     <div>
-      <p>
-        <strong>Title:</strong>
-        <%= travel_post.title %>
-      </p>
+      <div class="blogview_tit">
+        <h2 class="post_heading"><%= travel_post.title %></h2>
+        <cite class="by_blog">
+          <span class="txt_by"><%= User.find(travel_post.user_id).display_name %></span>
+        </cite>
+      </div>
+      <div class="blogview_info">
+        <time class="txt_date"><%= travel_post.created_at %></time>
+        <span class="sympathy_wrap">
+          <div class="info_sym">
+            <span class="ico_comm ico_comment"></span><span class="count_comment"><%= travel_post.travel_comments.count %></span>
+          </div>
+          <div class="info_sym">
+            <span class="ico_comm ico_heart"></span><span class="count_comment"><%= travel_post.travel_post_likes.where(like:true).count %></span>
+          </div>
+        </span>
+      </div>
+      <div class="blogview_content">
+        <p class="blog_p">
+          <%= travel_post.context %>
+          <% travel_post.travel_post_attachments.all.each do |post| %>
+            <%= image_tag("#{post.s3.main}") %>
+          <% end %>
+        </p>
 
-      <p>
-        <strong>Like:</strong>
-        <%= travel_post.travel_post_likes.count %>
-      </p>
-
-      <p>
-        <strong>User:</strong>
-        <%= User.find(travel_post.user_id).display_name %>
-      </p>
-
-      <p>
-        <strong>Context:</strong>
-        <%= travel_post.context %>
-      </p>
-
-      <p>
-        <strong>사진:</strong>
-        <% travel_post.travel_post_attachments.all.each do |post| %>
-          <%= image_tag("#{post.s3.main}") %>
-        <% end %>
-
-      </p>
+        <div class="container_postbtn">
+          <div class="postbtn_like">
+            <div class="like_btn">
+              <label class="uoc-icon">
+                <span class="ico_postbtn ico_like"></span>
+                <span class="txt_like uoc-text">공감</span>
+                <span class="txt_like uoc-count" style="display: none;"></span>
+                <input type="button" class="inp_btn uoc-button">
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% if current_user.id == travel_post.user_id %>
+        <%= link_to 'Edit', edit_travel_post_path(travel_post) %>
+        <%= link_to 'Destroy', travel_post, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
 
       <div class="letter-button-box">
         <% if travel_post.travel_post_likes.where(travel_post_id: travel_post.id, like: true, user_id: current_user.id).present? %>
@@ -57,7 +204,7 @@
 
       <div class="comments">
         <div class="comment_header">
-          <h2>Comments:</h2>
+          <h4>Comments:</h4>
         </div>
         <div class="comments_list">
           <ul id="comments_list_<%=travel_post.id%>">
@@ -75,11 +222,9 @@
           <%= render 'travel_comments/form', comment: travel_post.travel_comments.new %>
         </div>
       </div>
-      <%= link_to 'Edit', edit_travel_post_path(travel_post) %>
-      <%= link_to 'Destroy', travel_post, method: :delete, data: { confirm: 'Are you sure?' } %>
     </div>
   <% end %>
+  <button class="btn btn-default button">
+    <%= link_to 'New Travel Post', new_travel_post_path %>
+  </button>
 </div>
-<br>
-
-<%= link_to 'New Travel Post', new_travel_post_path %>
