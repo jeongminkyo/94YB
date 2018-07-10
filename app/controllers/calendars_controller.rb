@@ -34,7 +34,9 @@ class CalendarsController < ApplicationController
   end
 
   def create
-    @calendar = Calendar.new(title: params['calendar']['title'], start: params['calendar']['start'], end: params['calendar']['end'], user_id: current_user.id)
+    @calendar = Calendar.new(title: current_user.display_name + ' ' + params['calendar']['title'],
+                             start: params['calendar']['start'], end: params['calendar']['end'],
+                             user_id: current_user.id)
     respond_to do |format|
       if @calendar.save
         format.html { redirect_to calendars_path, notice: '일정이 등록되었습니다.' }

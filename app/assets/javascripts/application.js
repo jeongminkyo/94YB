@@ -15,6 +15,7 @@
 //= require_tree .
 //= require moment
 //= require fullcalendar
+//= require turbolinks
 //= require daterangepicker
 //= require bootstrap-datepicker
 //= require clean-blog
