@@ -1,31 +1,92 @@
-<p id="notice"><%= notice %></p>
+<div>
+  <% @notices.each do |notice| %>
+    <div>
+      <div class="blogview_tit">
+        <h2 class="post_heading"><%= notice.title %></h2>
+        <cite class="by_blog">
+          <span class="txt_by"><%= User.find(notice.user_id).display_name %></span>
+        </cite>
+      </div>
+      <div class="blogview_info">
+        <time class="txt_date"><%= notice.created_at %></time>
+        <span class="sympathy_wrap">
+          <div class="info_sym">
+            <span class="ico_comm ico_comment"></span><span class="count_comment"><%= notice.notice_comments.count %></span>
+          </div>
+          <div class="info_sym">
+            <span class="ico_comm ico_heart"></span><span class="count_comment"><%= notice.notice_likes.where(like:true).count %></span>
+          </div>
+        </span>
+      </div>
+      <div class="blogview_content">
+        <p class="blog_p">
+          <%= notice.context %>
+        </p>
+        <p class="blog_p">
+          <% notice.notice_attachments.all.each do |post| %>
+            <%= image_tag("#{post.s3.main}") %>
+          <% end %>
+        </p>
 
-<h1>Notices</h1>
+        <div class="container_postbtn">
+          <div class="postbtn_like">
+            <div class="like_btn">
+              <label class="uoc-icon" style="margin-bottom: 0px">
+                <% if notice.notice_likes.where(:user_id => current_user.id).present? %>
+                  <span class="ico_postbtn" style="background-position: -20px 0;"></span>
+                  <span class="txt_like uoc-text"><%= notice.notice_likes.where(like:true).count %></span>
+                  <span class="txt_like uoc-count" style="display: none;"></span>
+                  <%= form_tag delete_notice_like_path(:id => notice.id), method: :delete do %>
+                    <input type="submit" value="like" name="like" class="inp_btn uoc-button">
+                  <% end %>
+                <% else %>
+                  <span class="ico_postbtn ico_like"></span>
+                  <span class="txt_like uoc-text"><%= notice.notice_likes.where(like:true).count %></span>
+                  <span class="txt_like uoc-count" style="display: none;"></span>
+                  <%= form_tag notice_like_path(:notice_id => notice.id), method: :post do %>
+                    <input type="submit" value="like" name="like" class="inp_btn uoc-button">
+                  <% end %>
+                <% end %>
+              </label>
+            </div>
+          </div>
+        </div>
+        <% if current_user.id == notice.user_id %>
+          <div class="container_postbtn">
+            <div class="postbtn_like">
+              <div class="like_btn">
+                <label class="uoc-icon" style="margin-bottom: 0px">
+                  <%= link_to '수정', edit_notice_path(notice) %>
+                </label>
+              </div>
+              <div class="like_btn" style="border-left: 1px solid #959595; border-left-color: rgba(149, 149, 149, 0.25);">
+                <label class="uoc-icon" style="margin-bottom: 0px">
+                  <%= link_to '삭제', notice, method: :delete, data: { confirm: 'Are you sure?' } %>
+                </label>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Context</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @notices.each do |notice| %>
-      <tr>
-        <td><%= notice.title %></td>
-        <td><%= notice.context %></td>
-        <td><%= notice.user_id %></td>
-        <td><%= link_to 'Show', notice %></td>
-        <td><%= link_to 'Edit', edit_notice_path(notice) %></td>
-        <td><%= link_to 'Destroy', notice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Notice', new_notice_path %>
+      <div class="section_comment">
+        <div>
+          <h3 class="tit_comment">
+            <span class="inner_comment">
+              <span class="img_comm ico_comment"></span><!-- react-text: 8 -->댓글 <!-- /react-text -->
+              <span class="num_comment"><%= notice.notice_comments.count %></span>
+            </span>
+          </h3>
+        </div>
+        <ul class="list_cmt" id="notice_list_<%=notice.id%>">
+          <%= render notice.notice_comments %>
+        </ul>
+      </div>
+      <%= render 'notice_comments/form', comment: notice.notice_comments.new %>
+    </div>
+  <% end %>
+  <button class="btn btn-default button">
+    <%= link_to 'New Notice', new_notice_path %>
+  </button>
+</div>

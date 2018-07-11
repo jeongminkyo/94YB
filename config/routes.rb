@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
-  resources :notices
+  resources :notice_attachments
+  resources :notices do
+    resources :notice_comments, only: [:create, :destroy]
+  end
   resources :cashes
   resources :travel_post_attachments
   resources :travel_posts do
@@ -21,6 +24,11 @@ Rails.application.routes.draw do
   controller :travel_post_like do
     post 'travel_post_like' => :create
     delete 'travel_post_like/:id' => :destroy, as: 'delete_travel_post_like'
+  end
+
+  controller :notice_like do
+    post 'notice_like' => :create
+    delete 'notice_like/:id' => :destroy, as: 'delete_notice_like'
   end
 
   resources :calendars

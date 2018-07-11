@@ -15,8 +15,6 @@ class TravelPostsController < ApplicationController
     where_clause = TravelPost.make_where_clause(params)
 
     @travel_posts = TravelPost.find_travel_post_list(page, where_clause)
-    @current_user_like = TravelPostLike.where(travel_post_id: params[:id], like: true, user_id: current_user.id)
-    @current_user_dislike = TravelPostLike.where(travel_post_id: params[:id], like: false, user_id: current_user.id)
   end
 
   # GET /travel_posts/1

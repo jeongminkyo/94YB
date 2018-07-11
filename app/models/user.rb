@@ -6,9 +6,12 @@ class User < ApplicationRecord
   has_many :post
   has_many :post_likes
   has_many :comments
-  has_many :travel_comments
   has_many :travel_posts
+  has_many :travel_post_likes
+  has_many :travel_comments
   has_many :notices
+  has_many :notice_likes
+  has_many :notice_comments
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable

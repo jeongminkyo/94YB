@@ -17,7 +17,9 @@ class NoticesController < ApplicationController
   # GET /notices
   # GET /notices.json
   def index
-    @notices = Notice.all
+    page = params[:page].blank? ? 1 : params[:page]
+
+    @notices = Notice.find_notice_list(page)
   end
 
   # GET /notices/1
@@ -28,6 +30,7 @@ class NoticesController < ApplicationController
   # GET /notices/new
   def new
     @notice = Notice.new
+    @notice_attachment = @notice.notice_attachments.build
   end
 
   # GET /notices/1/edit
@@ -37,11 +40,17 @@ class NoticesController < ApplicationController
   # POST /notices
   # POST /notices.json
   def create
+    params[:notice][:user_id] = current_user.id
     @notice = Notice.new(notice_params)
 
     respond_to do |format|
       if @notice.save
-        format.html { redirect_to @notice, notice: 'Notice was successfully created.' }
+        if params[:notice_attachments].present?
+          params[:notice_attachments]['s3'].each do |a|
+            @notice_attachment = @notice.notice_attachments.create!(:s3 => a, :notice_id => @notice.id)
+          end
+        end
+        format.html { redirect_to notices_path, notice: 'Notice was successfully created.' }
         format.json { render :show, status: :created, location: @notice }
       else
         format.html { render :new }
@@ -82,6 +91,7 @@ class NoticesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def notice_params
-      params.require(:notice).permit(:title, :context, :user_id)
+      params.require(:notice).permit(:title, :context, :user_id, notice_attachments_attributes:
+          [:id, :notice_id, :s3])
     end
 end

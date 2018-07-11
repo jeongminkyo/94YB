@@ -1,4 +1,4 @@
-class PostAttachmentsController < ApplicationController
+wclass PostAttachmentsController < ApplicationController
   before_action :set_post_attachment, only: [:show, :edit, :update, :destroy]
 
   # GET /post_attachments
