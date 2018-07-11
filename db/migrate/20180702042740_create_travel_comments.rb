@@ -3,6 +3,7 @@ class CreateTravelComments < ActiveRecord::Migration[5.0]
     create_table :travel_comments do |t|
       t.references :travel_post, foreign_key: true
       t.text :body
+      t.integer :user_id
 
       t.timestamps
     end

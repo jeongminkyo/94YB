@@ -1,3 +1,335 @@
 // Place all the styles related to the TravelPosts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.button {
+  background: white;
+  border: 1px solid lightgray;
+  margin-top: 10px;
+}
+
+.post_heading {
+  display: block;
+  white-space: normal;
+  padding-top: 4px;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 29px;
+  letter-spacing: -1px;
+  word-break: break-word;
+}
+.blogview_tit {
+  padding-top: 23px;
+  margin: 0 32px;
+  text-align: center;
+}
+.by_blog {
+  display: block;
+  height: 18px;
+  position: static;
+  padding-top: 8px;
+  font-style: normal;
+  font-weight: normal;
+}
+.txt_by {
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  height: 18px;
+  padding: 0 26px;
+  font-size: 12px;
+  color: #9199A4;
+}
+
+.blogview_info {
+  height: 37px;
+  border-top: 1px solid #9199a4;
+  border-bottom: 1px solid #ecf0f5;
+  margin: 29px 20px 0;
+}
+.txt_date {
+  font-size: 12px;
+  line-height: 38px;
+  color: #9199A4;
+}
+.blogview_info .sympathy_wrap {
+  height: auto;
+  padding: 0;
+}
+.sympathy_wrap {
+  float: right;
+  height: 16px;
+  padding: 3px 1px 0 0;
+}
+.info_sym {
+  padding: 10px 0;
+  margin-left: 14px;
+  line-height: 18px;
+  float: left;
+  font-size: 12px;
+  color: #9199a4;
+  vertical-align: top;
+}
+
+.ico_comm {
+  display: inline-block;
+  overflow: hidden;
+  background: url(//t1.daumcdn.net/tistory_admin/static/mobile/m320/ico_comm2.png) no-repeat 0 0;
+  text-indent: -9999px;
+  vertical-align: top;
+}
+.ico_comment {
+  width: 18px;
+  height: 16px;
+  margin: 1px 4px 0 0;
+  background-position: -40px -46px;
+}
+.ico_heart {
+  width: 18px;
+  height: 15px;
+  margin: 1px 2px 0 0;
+  background-position: 0 -46px;
+}
+.blogview_content {
+  padding: 0 20px 30px;
+  margin: 34px auto 0;
+  max-width: 800px;
+  font-size: 16px;
+  line-height: 27px;
+  color: #303030;
+  word-break: break-word;
+  overflow: hidden;
+}
+.blog_p {
+  box-sizing: border-box;
+  margin: 0px 0px 9px;
+  color: rgb(92, 92, 92);
+  font-family: "Malgun Gothic", NanumBarunGothic, NanumGothic, "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  text-align: justify;
+  line-height: 1.5;
+}
+.container_postbtn {
+  padding: 35px 0;
+  position: relative;
+  overflow: hidden;
+}
+.container_postbtn .postbtn_like {
+  float: left;
+  border-radius: 1px;
+  border: 1px solid #959595;
+  border-color: rgba(149,149,149,0.25);
+}
+.like_btn {
+  float: left;
+}
+.container_postbtn .postbtn_like .ico_postbtn {
+  width: 16px;
+  height: 16px;
+  margin-top: 11px;
+}
+.txt_like {
+  font-size: 14px;
+  color: #333;
+}
+.ico_like {
+  background-position: 0 0;
+}
+
+.container_postbtn .ico_postbtn {
+  display: inline-block;
+  overflow: hidden;
+  background: url(//t1.daumcdn.net/tistory_admin/static/mobile/m320/ico_postbtn.png) no-repeat;
+  vertical-align: top;
+  text-indent: -9999px;
+  width: 16px;
+  height: 16px;
+  margin-top: 11px;
+}
+.container_postbtn .postbtn_like label {
+  float: left;
+  overflow: hidden;
+  height: 38px;
+  padding: 0 14px;
+  line-height: 38px;
+  cursor: pointer;
+}
+.container_postbtn .postbtn_like .inp_btn {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 1px;
+  height: 1px;
+}
+
+.section_comment {
+  position: relative;
+  border-bottom: 1px solid #e2e5e9;
+  background-color: #fff;
+}
+.tit_comment {
+  margin-top: 3px;
+  padding-top: 36px;
+  border-top: 1px solid #e2e5e9;
+  box-shadow: 0 -0.05em 0 rgba(0,0,0,0.03);
+  font-weight: normal;
+  font-size: 15px;
+}
+.inner_comment {
+  display: block;
+  margin: 0 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #9199a4;
+}
+.section_comment .tit_comment .ico_comment {
+  float: left;
+  width: 18px;
+  height: 16px;
+  margin: 3px 6px 0 0;
+  background-position: -40px -46px;
+}
+.img_comm, .list_cmt .thumb_img {
+  background: url(//t1.daumcdn.net/tistory_admin/static/mobile/m320/ico_comm2.png) no-repeat 0 0;
+  vertical-align: top;
+}
+.num_comment {
+  font-size: 14px;
+  color: #EC5621;
+}
+.list_cmt {
+  margin: 0 20px;
+  padding: 0;
+}
+
+.ico_comm, .img_comm, .list_cmt .thumb_img {
+  background-image: url(//t1.daumcdn.net/tistory_admin/static/mobile/m640/ico_comm2.png);
+  -webkit-background-size: 400px 400px;
+  background-size: 400px 400px;
+}
+.thumb_img {
+  position: absolute;
+  left: 0;
+  top: 20px;
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+  vertical-align: top;
+}
+.img_thumg {
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+}
+img {
+  vertical-align: top;
+  border: 0 none;
+}
+.list_cmt .cmt_info .info_append {
+  display: block;
+  overflow: hidden;
+  margin-right: 20px;
+  padding-top: 1px;
+  font-weight: normal;
+}
+.list_cmt .info_append .link_author {
+  overflow: hidden;
+  float: left;
+  max-width: 119px;
+  font-size: 13px;
+  color: #9199a4;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.list_cmt .info_append .txt_date {
+  float: left;
+  position: relative;
+  padding: 3px 0 0 14px;
+  font-size: 12px;
+  line-height: 13px;
+  color: #9199A4;
+}
+.list_cmt .item_cmt {
+  position: relative;
+  padding: 19px 0 16px 40px;
+}
+.list_cmt .cmt_info .txt_cmt {
+  display: block;
+  margin-top: 5px;
+  font-size: 14px;
+  line-height: 21px;
+  color: #404040;
+  word-break: break-word;
+}
+.list_cmt .txt_cmt .ico_secret {
+  display: inline-block;
+  width: 10px;
+  height: 13px;
+  margin: 4px 0 0 5px;
+  background-position: -152px -46px;
+  vertical-align: top;
+}
+.control_cmt {
+  position: absolute;
+  right: -15px;
+  top: 14px;
+}
+.item_cmt .control_cmt .btn_control {
+  padding: 9px 14px 8px 13px;
+  font-size: 0;
+  line-height: 0;
+}
+button {
+  border: 0 none;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+}
+.item_cmt .control_cmt .inner_btn {
+  width: 3px;
+  height: 13px;
+  background-position: -184px -8px;
+}
+.item_cmt .control_cmt .control_layer {
+  display: none;
+  position: absolute;
+  right: 12px;
+  top: 30px;
+  z-index: 10;
+  width: 68px;
+  padding: 9px 0;
+  font-size: 14px;
+  color: #000;
+  border: 1px solid #BEC5D0;
+  background-color: #FFF;
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.08);
+}
+.item_cmt .control_layer .btn_ctr {
+  display: block;
+  line-height: 32px;
+  text-align: center;
+}
+.show {display: block;}
+
+.cmt_write {
+  position: relative;
+  margin: 0 -20px;
+}
+.write_cmt {
+  padding: 12px 20px 20px;
+  border: 1px solid #DADDE0;
+  border-width: 1px 0;
+  background-color: #F1F4F8;
+}
+.write_cmt .box_write {
+  position: relative;
+  margin-top: 8px;
+}
+.write_cmt .write_area {
+  position: relative;
+  min-height: 125px;
+  padding-top: 13px;
+}
+.write_area {
+  border: 1px solid #DBDFE5;
+  background-color: #FFF;
+}

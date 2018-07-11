@@ -1,5 +1,37 @@
+
 <li id="comment_<%=travel_comment.id %>">
-  <%= travel_comment.body %>,
-  <%= time_ago_in_words(travel_comment.created_at) %> ago
-  <%= link_to '삭제', [travel_comment.travel_post, travel_comment], method: :delete, remote: true, data: { confirm: "Are you sure?" } %>
+  <div class="item_cmt reply_cmt">
+    <a class="thumb_img">
+      <img src="//img1.daumcdn.net/thumb/C30x30/?fname=https%3A%2F%2Ft1.daumcdn.net%2Ftistory_admin%2Fblog%2Fadmin%2Fprofile_default_03.png" class="img_thumg" alt="프로필 이미지">
+    </a>
+    <div class="cmt_info">
+      <strong class="info_append">
+        <a class="link_author"><%= User.find(travel_comment.user_id).display_name %></a>
+        <span class="txt_date">
+          <span><%= time_ago_in_words(travel_comment.created_at) %> ago</span>
+        </span>
+      </strong>
+      <span class="txt_cmt">
+        <!-- react-text: 22 --><%= travel_comment.body %><!-- /react-text -->
+      </span>
+    </div>
+    <div class="control_cmt">
+      <button type="button" class="btn_control" onclick="myFunction(<%=travel_comment.id %>)">
+        <span class="ico_comm inner_btn">댓글 컨트롤 레이어 펼침</span>
+      </button>
+      <div class="control_layer control_layer_<%=travel_comment.id %>">
+        <%= link_to '삭제', [travel_comment.travel_post, travel_comment], class:'btn_ctr', method: :delete, remote: true, data: { confirm: "Are you sure?" } %>
+      </div>
+    </div>
+  </div>
 </li>
+
+
+<script>
+    /* When the user clicks on the button,
+    toggle between hiding and showing the dropdown content */
+    function myFunction(id) {
+        var className = '.control_layer_' + id;
+        $(className).toggle("show");
+    }
+</script>

@@ -5,6 +5,10 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :post
   has_many :post_likes
+  has_many :comments
+  has_many :travel_comments
+  has_many :travel_posts
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 

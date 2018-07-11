@@ -25,6 +25,6 @@ class TravelCommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:travel_comment).permit(:body)
+    params.require(:travel_comment).permit(:body, :user_id)
   end
 end

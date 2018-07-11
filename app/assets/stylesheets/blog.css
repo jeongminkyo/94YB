@@ -324,7 +324,7 @@ header.masthead .post-heading .meta a {
 
 .floating-label-form-group input,
 .floating-label-form-group textarea {
-    font-size: 1.5em;
+    font-size: 16px;
     position: relative;
     z-index: 1;
     padding: 0;
@@ -333,7 +333,7 @@ header.masthead .post-heading .meta a {
     border-radius: 0;
     background: none;
     box-shadow: none !important;
-    font-family: 'Lora', 'Times New Roman', serif;
+
 }
 
 .floating-label-form-group input::-webkit-input-placeholder,
@@ -393,6 +393,8 @@ footer .copyright {
 
 .mx_auto_comment {
     margin-right: auto !important;
+    margin-left: auto !important;
+    width:80%;
 }
 
 /*.btn {*/
