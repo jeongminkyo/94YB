@@ -47,19 +47,23 @@ class CalendarsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @calendar.update(start: params['calendar']['start'], end: params['calendar']['end'])
-        format.html { redirect_to calendars_path, notice: '일정이 변경되었습니다.' }
-      else
-        format.html { render action: 'edit' }
+    if (@calendar.user_id == current_user.id) || current_user.is_admin?
+      respond_to do |format|
+        if @calendar.update(title: params['calendar']['title'], start: params['calendar']['start'], end: params['calendar']['end'])
+          format.html { redirect_to calendars_path, notice: '일정이 변경되었습니다.' }
+        else
+          format.html { render action: 'edit' }
+        end
       end
     end
   end
 
   def destroy
-    @calendar.destroy
-    respond_to do |format|
-      format.html { redirect_to calendars_path }
+    if (@calendar.user_id == current_user.id) || current_user.is_admin?
+      @calendar.destroy
+      respond_to do |format|
+        format.html { redirect_to calendars_path }
+      end
     end
   end
 

@@ -48,7 +48,7 @@ class TravelPostsController < ApplicationController
             @travel_post_attachment = @travel_post.travel_post_attachments.create!(:s3 => a, :travel_post_id => @travel_post.id)
           end
         end
-        format.html { redirect_to @travel_post, notice: 'Travel post was successfully created.' }
+        format.html { redirect_to travel_posts_path, notice: 'Travel post was successfully created.' }
         format.json { render :show, status: :created, location: @travel_post }
       else
         format.html { render :new }

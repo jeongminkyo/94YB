@@ -21,6 +21,8 @@
       <div class="blogview_content">
         <p class="blog_p">
           <%= travel_post.context %>
+        </p>
+        <p class="blog_p">
           <% travel_post.travel_post_attachments.all.each do |post| %>
             <%= image_tag("#{post.s3.main}") %>
           <% end %>
@@ -49,11 +51,24 @@
             </div>
           </div>
         </div>
+        <% if current_user.id == travel_post.user_id %>
+          <div class="container_postbtn">
+            <div class="postbtn_like">
+              <div class="like_btn">
+                <label class="uoc-icon" style="margin-bottom: 0px">
+                  <%= link_to '수정', edit_travel_post_path(travel_post) %>
+                </label>
+              </div>
+              <div class="like_btn" style="border-left: 1px solid #959595; border-left-color: rgba(149, 149, 149, 0.25);">
+                <label class="uoc-icon" style="margin-bottom: 0px">
+                  <%= link_to '삭제', travel_post, method: :delete, data: { confirm: 'Are you sure?' } %>
+                </label>
+              </div>
+            </div>
+          </div>
+        <% end %>
       </div>
-      <% if current_user.id == travel_post.user_id %>
-        <%= link_to 'Edit', edit_travel_post_path(travel_post) %>
-        <%= link_to 'Destroy', travel_post, method: :delete, data: { confirm: 'Are you sure?' } %>
-      <% end %>
+
 
       <div class="section_comment">
         <div>

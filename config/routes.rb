@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :notices
   resources :cashes
   resources :travel_post_attachments
   resources :travel_posts do
