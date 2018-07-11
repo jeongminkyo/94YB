@@ -1,105 +1,178 @@
 // Place all the styles related to the Posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.like-text {
-  display: block;
-  float: left;
-  color: #FC5B1F;
-  margin-right: 8px;
+li {
+  list-style: none;
 }
+.btn-sm {
+  background-color: transparent;
+  border: 1px solid lightgray;
+  padding: 8px 10px;
 
-img.like-icon {
-  display: block;
-  float: left;
-  width: 12px;
-  height: 12px;
-  padding-top:1px;
-  margin-right: 4px;
+  border-radius: 0.25rem;
 }
-
-span.nickname {
-  font-size: 13px;
-  color: #30AEB4;
+.section_differ {
+  padding: 40px 0 29px;
+  margin-top: 3px;
+  border-top: 1px solid #e2e5e9;
+  box-shadow: 0 -0.05em 0 rgba(0,0,0,0.03);
+  background-color: #fff;
 }
-
-.info {
-  display: block;
-  /*margin: 0 0 12px 0;*/
-  margin: 0 0 8px 0;
-  padding: 0 0 0 0;
-  font-size: 12px;
-  /*height: 14px;*/
-  color: #aaaaaa;
-  text-shadow: none;
+.sectionview_tit {
+  position: relative;
+  height: 23px;
+  margin: 0 20px;
   font-weight: normal;
-  overflow: auto;
-  word-break: break-all;
+  font-size: 15px;
+  line-height: 25px;
+  text-align: center;
+}
+.sectionview_tit .tit_sectionview {
+  position: relative;
+  padding: 0 8px;
+  background-color: #fff;
+}
+.sectionview_tit:before {
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 100%;
+  height: 1px;
+  background-color: #BEC5D0;
+  content: '';
+}
+
+.sectionview_tit {
+  position: relative;
+  height: 23px;
+  margin: 0 20px;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 25px;
+  text-align: center;
+}
+.section_differ .list_post {
+  margin-top: 5px;
+}
+.list_post {
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 0;
+}
+.list_post .link_post {
+  display: block;
+  position: relative;
+  padding-bottom: 25px;
+}
+.list_post .desc_post {
+  display: block;
+  max-height: 82px;
+}
+.list_post .tit_post {
+  display: block;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  -webkit-line-clamp: 2;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 21px;
+  word-break: break-word;
+  max-height: 42px;
+}
+.list_post .data_info {
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  right: -2px;
+  bottom: -5px;
+  z-index: 1;
+}
+.list_post .data_info .txt_date {
+  float: left;
+  font-size: 12px;
+  line-height: 20px;
+  color: #9199a4;
+  padding-left: 6px;
+}
+.list_post .data_info .txt_date:before {
+  float: left;
+  width: 2px;
+  height: 2px;
+  border-radius: 2px;
+  margin: 9px 6px 0 0;
+  background-color: #9199a4;
+  vertical-align: top;
+  content: '';
+}
+.sympathy_wrap {
+  float: right;
+  height: 16px;
+  padding: 3px 1px 0 0;
+}
+.sympathy_wrap .info_sym {
+  padding: 0;
+  float: left;
+  margin-left: 10px;
+  font-size: 12px;
+  line-height: 15px;
+  color: #9199a4;
+  vertical-align: top;
+}
+.sympathy_wrap .ico_comment {
+  width: 13px;
+  height: 12px;
+  margin: 1px 3px 0 0;
+  background-position: -112px -46px;
+}
+.ico_comm {
+  display: inline-block;
+  overflow: hidden;
+  background: url(//t1.daumcdn.net/tistory_admin/static/mobile/m320/ico_comm2.png) no-repeat 0 0;
+  text-indent: -9999px;
+  vertical-align: top;
+}
+.list_post li {
+  margin: 0 20px;
+  padding: 17px 0 20px;
+  border-top: 1px solid #ecf0f5;
+}
+.section_differ .list_post li {
+  border-top: 0 none;
+  border-bottom: 1px solid #ecf0f5;
+}
+.list_post .data_info .txt_category {
+  overflow: hidden;
+  float: left;
+  max-width: 40%;
+  font-size: 12px;
+  line-height: 21px;
+  color: #ec5621;
+  white-space: nowrap;
   text-overflow: ellipsis;
 }
-
-
-li {
-  list-style:none;
+.sympathy_wrap .ico_heart {
+  width: 13px;
+  height: 11px;
+  margin: 1px 3px 0 0;
+  background-position: -84px -46px;
 }
-
-.post_li {
-  list-style:none;
-  border-bottom: 1px solid #ededed;
-}
-
-.text-box h1{
+.section_differ .link_more {
   display: block;
-  margin: 6px 0 4px 0;
-  padding: 0 0 0 0;
-  font-size: 16px;
-  color: #4d4d4d;
-  text-shadow: none;
-  font-weight: bold;
-}
-
-.button {
-  display: block;
-  float: right;
-  text-decoration: none;
-  padding-left: 16px;
-  padding-right: 16px;
-  color: #4D4D4D;
-  font-family: 'godo_mregular', 'NanumGothic', 'Malgun Gothic', 'AppleGothic', 'Dotum', sans-serif !important;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  text-shadow: none;
+  height: 16px;
+  padding: 11px 0;
+  margin: 0 20px;
+  font-size: 12px;
+  line-height: 16px;
+  color: #9199A4;
   text-align: center;
-  font-weight: normal;
-  font-size: 13px;
-  line-height: 21px;
-  vertical-align: middle;
-  border: 1px solid #CBCBCC;
-  border-radius: 3px;
-  margin: 0 8px 0 0;
-  height: 26px;
 }
-
-.float-right {
-  float: right;
-  margin-left: 8px;
+.pagination {
+  display:block;
+  font-size: 1.2em;
+  margin-top: 15px;
 }
-
-.icon {
-  display: inline-block;
-  float: left;
-  margin: 2px 4px 0 0;
-  padding: 0 0 0 0;
-  width: 13.5px;
-  height: 13.5px;
-}
-
-.orange {
-  color: #FC5B1F;
-}
-
-.letter-button-box {
-  display: block;
-  margin: 9px 16px 18px 16px;
-  padding: 0 0 0 0;
-  overflow: auto;
+.page {
+  margin: 0 10px;
 }

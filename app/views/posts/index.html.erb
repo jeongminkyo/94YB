@@ -1,68 +1,54 @@
-<style>
-  .btn-sm {
-    background-color: transparent;
-    border: 1px solid lightgray;
-    padding: 8px 10px;
-
-    border-radius: 0.25rem;
-  }
-</style>
 <% flash.each do |type, message| %>
   <div class="alert <%= bootstrap_class_for(type) %> alert-dismissable fade in">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
     <p class="notice"><%= message %></p>
   </div>
 <% end %>
-<h3>자유게시판</h3>
 
-<div class="col-xs-1" style="display: inline-block">
-  <%= link_to '<i class="fa fa-1"></i> 전체보기'.html_safe, posts_path, remote: false, class: 'btn btn-sm btn-default', 'data-toggle': 'tooltip', 'data-html': true %>
-</div>
-<div class="col-xs-1" style="display: inline-block">
-  <%= form_tag posts_path, method: :get, class: 'form-inline' do %>
-    <div class="col-xs-1">
-      <%= select_tag 'search_by', options_for_select(['제목', '제목 + 내용', '작성자'], '제목'), class: 'form-control align-center ' %>
+<div class="section_differ">
+  <div class="section_differ_inner" style="display: block;">
+    <h3 class="sectionview_tit">
+      <span class="tit_sectionview">자유게시판</span>
+    </h3>
+    <ul class="list_post">
+      <% @posts.each do |post| %>
+        <li>
+          <a href="/posts/<%=post.id %>" class="link_post tit_line2">
+            <span class="desc_post">
+              <strong class="tit_post"><%= post.title %></strong>
+            </span>
+            <span class="data_info">
+              <span class="txt_category">자유게시판</span>
+              <span class="txt_date">
+                <%= post.created_at.to_date %>
+              </span>
+              <span class="sympathy_wrap">
+                <span class="info_sym">
+                  <span class="ico_comm ico_comment">댓글수</span>
+                  <%= post.comments.count %>
+                </span>
+                <span class="info_sym">
+                  <span class="ico_comm ico_heart">내가 공감한 블로그 공감수</span>
+                  <%= post.post_likes.where(like: true).count %>
+                </span>
+              </span>
+            </span>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+    <div class="link_more">
+      <%= paginate @posts %>
     </div>
-    <div class="input-group align-center col-xs-1">
-      <%= text_field_tag 'search_value', nil, class: 'form-control', placeholder: '정보 검색' %>
-      <div class="input-group-btn">
-        <button class="btn btn-sm btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-      </div>
-    </div>
-  <% end %>
-</div>
-
-<% @posts.each do |post| %>
-  <li class="post_li">
-    <div class="text-box" id="<%= dom_id(post) %>"  class="linkable" data-href="<%= posts_path+'/'+post.id.to_s %>">
-      <h1><%= truncate(post.title, length: 40) %></h1>
-      <div class="info">
-        <span class="nickname"><%= post.display_name %></span>
-        <span><%= post.created_at.to_date %></span>
-        <span>조회: 0 </span>
-      </div>
-      <div class="info">
-        <img src="http://akamai-cdn.cashslide.kr/comm_sys_fl_brd_icon_reply_s.png" class="like-icon" /> <span class="like-text"><%= post.comments.count %></span>
-        <img src="http://akamai-cdn.cashslide.kr/comm_sys_fl_brd_icon_like.png" class="like-icon" /> <span class="like-text"><%= PostLike.where(post_id: post.id, like: true).count %></span>
-      </div>
-    </div>
-  </li>
-<% end %>
-<div class="col-md-6">
-  <div style="margin-top: 8px; text-align: center; ">
-    <%= paginate @posts %>
   </div>
 </div>
 
-<%= link_to 'New', new_post_path, class: 'btn-sm', style: 'margin-left:5px' %>
 
-<script>
-    $(document).ready(function(){
-        $('.text-box').click(function(){
-            window.location = $(this).data('href');
-            return false;
-        });
-        $('[data-toggle="tooltip"]').tooltip();
-        $(".delivary").addClass("active");
-    });
-</script>
+
+
+
+
+
+
+
+
