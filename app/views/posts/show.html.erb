@@ -1,67 +1,87 @@
-<p id="notice"><%= notice %></p>
+<div>
+  <div class="blogview_tit">
+    <h2 class="post_heading"><%= @post.title %></h2>
+    <cite class="by_blog">
+      <span class="txt_by"><%= User.find(@post.user_id).display_name %></span>
+    </cite>
+  </div>
+  <div class="blogview_info">
+    <time class="txt_date"><%= @post.created_at %></time>
+    <span class="sympathy_wrap">
+          <div class="info_sym">
+            <span class="ico_comm ico_comment"></span><span class="count_comment"><%= @post.comments.count %></span>
+          </div>
+          <div class="info_sym">
+            <span class="ico_comm ico_heart"></span><span class="count_comment"><%= @post.post_likes.where(like:true).count %></span>
+          </div>
+        </span>
+  </div>
+  <div class="blogview_content">
+    <p class="blog_p">
+      <%= @post.context %>
+    </p>
+    <p class="blog_p">
+      <% @post.post_attachments.all.each do |post| %>
+        <%= image_tag("#{post.s3.main}") %>
+      <% end %>
+    </p>
 
-<%= @test %>
-
-
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</p>
-
-<p>
-  <strong>Context:</strong>
-  <%= @post.context %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= User.find(@post.user_id).display_name %>
-</p>
-
-<p>
-  <strong>사진:</strong>
-  <% @post_attachments.each do |post| %>
-    <%= image_tag("#{post.s3.main}") %>
-  <% end %>
-
-</p>
-
-<div class="letter-button-box">
-  <% if @current_user_like.present? %>
-    <%= form_tag delete_post_like_path(:post_id => params[:id]), method: :delete do %>
-      <input type="submit", value="like", name="like" class="button float-right">
+    <div class="container_postbtn">
+      <div class="postbtn_like">
+        <div class="like_btn">
+          <label class="uoc-icon" style="margin-bottom: 0px">
+            <% if @post.post_likes.where(:user_id => current_user.id).present? %>
+              <span class="ico_postbtn" style="background-position: -20px 0;"></span>
+              <span class="txt_like uoc-text"><%= @post.post_likes.where(like:true).count %></span>
+              <span class="txt_like uoc-count" style="display: none;"></span>
+              <%= form_tag delete_post_like_path(:id => @post.id), method: :delete do %>
+                <input type="submit" value="like" name="like" class="inp_btn uoc-button">
+              <% end %>
+            <% else %>
+              <span class="ico_postbtn ico_like"></span>
+              <span class="txt_like uoc-text"><%= @post.post_likes.where(like:true).count %></span>
+              <span class="txt_like uoc-count" style="display: none;"></span>
+              <%= form_tag post_like_path(:travel_post_id => @post.id), method: :post do %>
+                <input type="submit" value="like" name="like" class="inp_btn uoc-button">
+              <% end %>
+            <% end %>
+          </label>
+        </div>
+      </div>
+    </div>
+    <% if current_user.id == @post.user_id %>
+      <div class="container_postbtn">
+        <div class="postbtn_like">
+          <div class="like_btn">
+            <label class="uoc-icon" style="margin-bottom: 0px">
+              <%= link_to '수정', edit_post_path(@post) %>
+            </label>
+          </div>
+          <div class="like_btn" style="border-left: 1px solid #959595; border-left-color: rgba(149, 149, 149, 0.25);">
+            <label class="uoc-icon" style="margin-bottom: 0px">
+              <%= link_to '삭제', @post, method: :delete, data: { confirm: 'Are you sure?' } %>
+            </label>
+          </div>
+        </div>
+      </div>
     <% end %>
-  <% else %>
-    <%= form_tag post_like_path(:post_id => params[:id]), method: :post do %>
-      <input type="submit", value="like", name="like" class="button float-right">
-    <% end %>
-  <% end %>
-  <% if @current_user_dislike.present? %>
-    <%= form_tag delete_post_like_path(:post_id => params[:id]), method: :delete do %>
-      <input type="submit", value="dislike", name="like" class="button float-right" style="color: red">
-    <% end %>
-  <% else %>
-    <%= form_tag post_like_path(:post_id => params[:id]), method: :post do %>
-      <input type="submit", value="dislike", name="like" class="button float-right">
-    <% end %>
-  <% end %>
-
-
-
-
-
-
-  <a href="#" onclick="$('#reply-like-<%= @post.id %>-form').submit();" data-ajax="false" class="button float-right">
-    <img src="http://akamai-cdn.cashslide.kr/comm_sys_fl_brd_icon_like.png" class="icon" />
-    <span class="orange"><%=@post_like %></span>
-  </a>
-  <a href="#" onclick="$('#reply-dislike-<%= @post.id %>-form').submit();" data-ajax="false" class="button float-right">
-    <img src="http://akamai-cdn.cashslide.kr/comm_sys_fl_brd_icon_dislike.png" class="icon" />
-    <span class="blue"><%=@post_dislike %></span>
-  </a>
+  </div>
+  <div class="section_comment">
+    <div>
+      <h3 class="tit_comment">
+            <span class="inner_comment">
+              <span class="img_comm ico_comment"></span><!-- react-text: 8 -->댓글 <!-- /react-text -->
+              <span class="num_comment"><%= @post.comments.count %></span>
+            </span>
+      </h3>
+    </div>
+    <ul class="list_cmt" id="comments_list_<%=@post.id%>">
+      <%= render @post.comments %>
+    </ul>
+  </div>
+  <%= render 'comments/form', comment: @post.comments.new %>
 </div>
 
-<%= render 'comments/comments' %>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', posts_path %>

@@ -1,15 +1,26 @@
-<li id="comment_<%=comment.id %>" class="reply-content">
-  <div class="info-box">
-    <div class="username">
-      <%= User.find(comment.user_id).display_name %>
+<li id="comment_<%=comment.id %>">
+  <div class="item_cmt reply_cmt">
+    <a class="thumb_img">
+      <img src="//img1.daumcdn.net/thumb/C30x30/?fname=https%3A%2F%2Ft1.daumcdn.net%2Ftistory_admin%2Fblog%2Fadmin%2Fprofile_default_03.png" class="img_thumg" alt="프로필 이미지">
+    </a>
+    <div class="cmt_info">
+      <strong class="info_append">
+        <a class="link_author"><%= User.find(comment.user_id).display_name %></a>
+        <span class="txt_date">
+          <span><%= time_ago_in_words(comment.created_at) %> ago</span>
+        </span>
+      </strong>
+      <span class="txt_cmt">
+        <!-- react-text: 22 --><%= comment.body %><!-- /react-text -->
+      </span>
     </div>
-    <div class="date">
-      <%= comment.created_at.to_time %>
+    <div class="control_cmt">
+      <button type="button" class="btn_control" onclick="myFunction(<%=comment.id %>)">
+        <span class="ico_comm inner_btn">댓글 컨트롤 레이어 펼침</span>
+      </button>
+      <div class="control_layer control_layer_<%=comment.id %>">
+        <%= link_to '삭제', [comment.post, comment], class:'btn_ctr', method: :delete, remote: true, data: { confirm: "Are you sure?" } %>
+      </div>
     </div>
   </div>
-
-  <div class="content-text" id="reply-content-text-<%= comment.id %>">
-    <%= simple_format(comment.body) %>
-  </div>
-  <%= link_to '삭제', [comment.post, comment], method: :delete, remote: true, data: { confirm: "Are you sure?" } %>
 </li>
