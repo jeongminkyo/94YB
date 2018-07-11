@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Notice Attachments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Notice</th>
+      <th>S3</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @notice_attachments.each do |notice_attachment| %>
+      <tr>
+        <td><%= notice_attachment.notice_id %></td>
+        <td><%= notice_attachment.s3 %></td>
+        <td><%= link_to 'Show', notice_attachment %></td>
+        <td><%= link_to 'Edit', edit_notice_attachment_path(notice_attachment) %></td>
+        <td><%= link_to 'Destroy', notice_attachment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Notice Attachment', new_notice_attachment_path %>

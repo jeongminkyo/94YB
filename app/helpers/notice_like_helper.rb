@@ -1,0 +1,2 @@
+module NoticeLikeHelper
+end

@@ -1,0 +1,6 @@
+<% if @notice_comment.errors.size == 0 %>
+$('<%=j render @notice_comment %>').appendTo($("#notice_list_<%=@notice.id %>")).hide().fadeIn('fast');
+$("#comments_form_<%=@notice.id %> form")[0].reset();
+<% else %>
+alert("Please submit after commenting...");
+<% end %>

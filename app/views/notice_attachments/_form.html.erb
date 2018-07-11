@@ -1,0 +1,12 @@
+<%= simple_form_for(@notice_attachment) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :notice_id %>
+    <%= f.input :s3 %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

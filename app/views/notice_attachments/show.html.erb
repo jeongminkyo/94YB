@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Notice:</strong>
+  <%= @notice_attachment.notice_id %>
+</p>
+
+<p>
+  <strong>S3:</strong>
+  <%= @notice_attachment.s3 %>
+</p>
+
+<%= link_to 'Edit', edit_notice_attachment_path(@notice_attachment) %> |
+<%= link_to 'Back', notice_attachments_path %>
