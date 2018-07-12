@@ -1,10 +1,27 @@
-<div id="comments_form_<%=comment.post.id%>">
-  <%= simple_form_for([comment.post, comment], remote: true ) do | f | %>
-    <div class='form-inputs'>
-      <%= f.input :body, label: false, placeholder: 'Add a comment.', input_html: { rows: 5 } %>
+<style>
+  textarea {
+    width : 100%;
+    font-size: 12px;
+  }
+</style>
+
+<div class="row">
+  <div class="mx_auto_comment">
+    <div id="comments_form_<%=comment.post.id%>">
+      <%= simple_form_for([comment.post, comment], remote: true ) do | f | %>
+        <div class="control-group">
+          <div class="form-group floating-label-form-group controls">
+            <label>Message</label>
+            <%= f.input :body, label: false, placeholder: 'Message', input_html: { rows: 5 } %>
+            <p class="help-block text-danger"></p>
+          </div>
+        </div>
+        <br>
+        <div id="success"></div>
+        <div class="form-group">
+          <%= f.button :submit, 'send', class: 'btn btn-primary'  %>
+        </div>
+      <% end %>
     </div>
-    <div class='form-actions'>
-      <%= f.button :submit %>
-    </div>
-  <% end %>
+  </div>
 </div>
