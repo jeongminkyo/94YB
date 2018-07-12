@@ -86,6 +86,9 @@
       <%= render 'notice_comments/form', comment: notice.notice_comments.new %>
     </div>
   <% end %>
+  <div class="link_more">
+    <%= paginate @notices %>
+  </div>
   <button class="btn btn-default button">
     <%= link_to '공지글 작성', new_notice_path %>
   </button>

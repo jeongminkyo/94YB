@@ -86,7 +86,12 @@
       <%= render 'travel_comments/form', comment: travel_post.travel_comments.new %>
     </div>
   <% end %>
+
   <button class="btn btn-default button">
     <%= link_to '새 글 작성', new_travel_post_path %>
   </button>
+  <div class="link_more">
+    <%= paginate @travel_posts %>
+  </div>
+
 </div>

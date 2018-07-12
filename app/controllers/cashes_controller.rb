@@ -15,11 +15,15 @@ class CashesController < ApplicationController
     end
   end
 
+  LIST_PER_PAGE = 20
+
   # GET /cashes
   # GET /cashes.json
   def index
-    @cashes = Cash.all
-    @wallet = Wallet.first.current_money
+    page = params[:page].blank? ? 1 : params[:page]
+
+    @cashes = Cash.all.page(page).per(LIST_PER_PAGE)
+    @wallet = Wallet.first
   end
 
   # GET /cashes/1

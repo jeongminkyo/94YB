@@ -12,30 +12,57 @@
     <p class="notice"><%= message %></p>
   </div>
 <% end %>
-<h3>회비 내역</h3>
-<span style="font-size: 1.5em; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;">총 회비 : <%= number_with_delimiter(@wallet) %></span>
-<div class="table-responsive form-inline">
-  <table class="table table-hover table-condensed" style="margin-top: 30px">
-    <thead>
-    <tr>
-      <th>날짜</th>
-      <th>설명</th>
-      <th>수입</th>
-      <th>지출</th>
-    </tr>
-    </thead>
 
-    <tbody>
-    <% @cashes.each do |cash| %>
-      <tr>
-        <td><%= cash.date %></td>
-        <td><%= cash.description %></td>
-        <td><%= number_with_delimiter(cash.income) %></td>
-        <td><%= number_with_delimiter(cash.expenditure) %></td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
+<div class="section_differ">
+  <div class="section_differ_inner" style="display: block;">
+    <h3 class="sectionview_tit">
+      <span class="tit_sectionview">회비 관리</span>
+    </h3>
+    <ul class="list_post">
+      <li>
+        <div class="link_post tit_line2">
+            <span class="desc_post">
+              <strong class="tit_post" style="display: inline-block">총 회비</strong>
+              <strong class="tit_post" style="display: inline-block; float:right; margin-right:20px"><%= number_with_delimiter(@wallet.current_money) %></strong>
+            </span>
+          <span class="data_info">
+            <span class="txt_category">업데이트</span>
+              <span class="txt_date">
+                <%= @wallet.updated_at %>
+              </span>
+            </span>
+        </div>
+      </li>
+      <% @cashes.each do |cash| %>
+        <li>
+          <a href="/cashes/<%=cash.id %>" class="link_post tit_line2">
+            <span class="desc_post">
+              <strong class="tit_post" style="display: inline-block"><%= cash.description %></strong>
+              <% if cash.income.present? %>
+                <strong class="tit_post" style="display: inline-block; float:right; margin-right:20px"><%= number_with_delimiter(cash.income) %></strong>
+              <% else %>
+                <strong class="tit_post" style="display: inline-block; float:right; margin-right:20px"><%= number_with_delimiter(cash.expenditure) %></strong>
+              <% end %>
+
+            </span>
+            <span class="data_info">
+              <% if cash.income.present? %>
+                <span class="txt_category">입금</span>
+              <% else %>
+                <span class="txt_category">출금</span>
+              <% end %>
+              <span class="txt_date">
+                <%= cash.date %>
+              </span>
+            </span>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+    <div class="link_more">
+      <%= paginate @cashes %>
+    </div>
+  </div>
 </div>
 
 <button class="add_btn btn-sm btn-default">추가</button>
