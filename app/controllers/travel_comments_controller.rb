@@ -11,7 +11,8 @@ class TravelCommentsController < ApplicationController
   end
 
   def destroy
-    @travel_comment.destroy
+    authorize_action_for @travel_comment
+      @travel_comment.destroy
   end
 
   private

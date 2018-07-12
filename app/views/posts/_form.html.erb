@@ -30,6 +30,15 @@
         <button class="btn btn-sm add_btn">추가</button>
       </p>
     </div>
+    <% if @post.new_record? %>
+      <%= f.submit value:'생성', class:'btn button' %>
+    <% else %>
+      <%= f.submit value:'수정', class:'btn button' %>
+    <% end %>
+
+    <button class="btn btn-default button">
+      <%= link_to '뒤로', posts_path %>
+    </button>
   </div>
 <% end %>
 

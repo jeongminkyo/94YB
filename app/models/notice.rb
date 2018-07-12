@@ -18,12 +18,10 @@ class Notice < ApplicationRecord
                 notices.context as context,
                 notices.user_id as user_id,
                 users.display_name as display_name,
-                notices.created_at as created_at,
-                notice_attachments.s3 as s3
+                notices.created_at as created_at
                 ')
           .joins('JOIN users ON users.id = notices.user_id')
-          .joins('LEFT JOIN notice_attachments ON notices.id = notice_attachments.notice_id')
-          .order('notices.id DESC').page(page).per(LIST_PER_PAGE)
+          .order('id DESC').page(page).per(LIST_PER_PAGE)
     end
   end
 end

@@ -11,7 +11,8 @@ class NoticeCommentsController < ApplicationController
   end
 
   def destroy
-    @notice_comment.destroy
+    authorize_action_for @notice_comment
+      @notice_comment.destroy
   end
 
   private
