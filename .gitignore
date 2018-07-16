@@ -20,11 +20,9 @@
 .byebug_history
 
 *.gem
-/config/deploy.rb
 Gemfile.lock
 /local_config/*
 .idea/
-Capfile
 atlassian-ide-plugin.xml
 /vendor/*
 p
