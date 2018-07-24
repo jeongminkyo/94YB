@@ -18,7 +18,7 @@
   </div>
   <div class="blogview_content">
     <p class="blog_p">
-      <%= @post.context %>
+      <%= @post.context.gsub(/\n/, '<br/>').html_safe %>
     </p>
     <p class="blog_p">
       <% @post.post_attachments.all.each do |post| %>

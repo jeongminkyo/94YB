@@ -20,7 +20,7 @@
       </div>
       <div class="blogview_content">
         <p class="blog_p">
-          <%= notice.context %>
+          <%= notice.context.gsub(/\n/, '<br/>').html_safe %>
         </p>
         <p class="blog_p">
           <% notice.notice_attachments.all.each do |post| %>

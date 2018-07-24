@@ -20,7 +20,7 @@
       </div>
       <div class="blogview_content">
         <p class="blog_p">
-          <%= travel_post.context %>
+          <%= travel_post.context.gsub(/\n/, '<br/>').html_safe %>
         </p>
         <p class="blog_p">
           <% travel_post.travel_post_attachments.all.each do |post| %>
