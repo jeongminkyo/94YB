@@ -28,30 +28,30 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="/">Home</a>
+              <a class="nav-link" href="/">홈</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/notices">notices</a>
+              <a class="nav-link" href="/notices">공지사항</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/cashes">money</a>
+              <a class="nav-link" href="/cashes">회비관리</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/posts">posts</a>
+              <a class="nav-link" href="/posts">자유게시판</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/travel_posts">Travel</a>
+              <a class="nav-link" href="/travel_posts">여행게시판</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/calendars">schedule</a>
+              <a class="nav-link" href="/calendars">일정관리</a>
             </li>
             <% if user_signed_in? %>
               <li class="nav-item">
-                <%= link_to 'log out', destroy_user_session_path, method: :delete, data: { confirm: "Are you sure?" }, class:'nav-link' %>
+                <%= link_to '로그아웃', destroy_user_session_path, method: :delete, data: { confirm: "Are you sure?" }, class:'nav-link' %>
               </li>
             <% else %>
               <li class="nav-item">
-                <a class="nav-link" href="/users/sign_in">login</a>
+                <a class="nav-link" href="/users/sign_in">로그인</a>
               </li>
             <% end %>
           </ul>

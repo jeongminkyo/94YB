@@ -24,7 +24,7 @@
         </p>
         <p class="blog_p">
           <% notice.notice_attachments.all.each do |post| %>
-            <%= image_tag("#{post.s3.main}") %>
+            <%= image_tag "#{post.s3.main}", style: 'width:100%;' %>
           <% end %>
         </p>
 
