@@ -18,8 +18,7 @@ class TravelPost < ApplicationRecord
                 travel_posts.context as context,
                 travel_posts.user_id as user_id,
                 users.display_name as display_name,
-                travel_posts.created_at as created_at,
-                travel_post_attachments.s3 as s3
+                travel_posts.created_at as created_at
                 ')
                 .where(where_clause)
                 .joins('JOIN users ON users.id = travel_posts.user_id')
