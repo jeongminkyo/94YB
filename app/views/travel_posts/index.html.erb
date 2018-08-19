@@ -24,7 +24,7 @@
         </p>
         <p class="blog_p">
           <% travel_post.travel_post_attachments.all.each do |post| %>
-            <%= image_tag("#{post.s3.main}") %>
+            <%= image_tag "#{post.s3.main}", style: 'width:100%;' %>
           <% end %>
         </p>
 
@@ -86,12 +86,10 @@
       <%= render 'travel_comments/form', comment: travel_post.travel_comments.new %>
     </div>
   <% end %>
-
-  <button class="btn btn-default button">
-    <%= link_to '새 글 작성', new_travel_post_path %>
-  </button>
   <div class="link_more">
     <%= paginate @travel_posts %>
   </div>
-
+  <button class="btn btn-default button">
+    <%= link_to '새 글 작성', new_travel_post_path %>
+  </button>
 </div>

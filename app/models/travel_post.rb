@@ -23,7 +23,6 @@ class TravelPost < ApplicationRecord
                 ')
                 .where(where_clause)
                 .joins('JOIN users ON users.id = travel_posts.user_id')
-                .joins('LEFT JOIN travel_post_attachments ON travel_posts.id = travel_post_attachments.travel_post_id')
                 .order('travel_posts.id DESC').page(page).per(LIST_PER_PAGE)
     end
 
