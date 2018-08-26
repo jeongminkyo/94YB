@@ -16,6 +16,7 @@ set :passenger_restart_options,
     -> { "#{deploy_to} --ignore-app-not-running --rolling-restart" }
 
 set :linked_dirs, %w{log}
+append :linked_files, "config/application.yml"
 
 namespace :deploy do
   desc 'Restart application'
