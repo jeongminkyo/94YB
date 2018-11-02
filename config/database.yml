@@ -54,3 +54,4 @@ production:
   database: YB94_production
   username: YB94
   password: <%= ENV['YB94_DATABASE_PASSWORD'] %>
+  host: 172.31.29.249
