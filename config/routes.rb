@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   controller :kakao do
     get '/keyboard' => :keyboard
+    post '/message' => :message
 
   end
   controller :post_like do
