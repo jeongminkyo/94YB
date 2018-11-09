@@ -44,21 +44,28 @@ class CashesController < ApplicationController
   # POST /cashes.json
   #
   def create
-    if params[:income].present?
-      Wallet.first.income_to_wallet(params[:income].to_i)
+    if params[:status].to_i == Cash::Status::INCOME
+      Wallet.first.income_to_wallet(params[:money].to_i)
       @cash = Cash.new(cash_params)
-    elsif params[:expenditure].present?
-      Wallet.first.expenditure_to_wallet(params[:expenditure].to_i)
+    elsif params[:status].to_i == Cash::Status::EXPENDITURE
+      Wallet.first.expenditure_to_wallet(params[:money].to_i)
       @cash = Cash.new(cash_params)
     end
 
     respond_to do |format|
       if @cash.save
-        format.html { redirect_to cashes_path, notice: 'Cash was successfully created.' }
-        format.json { render :show, status: :created, location: @cash }
+        if params[:user_id].present?
+          @income_history = IncomeHistory.new(user_id: params[:user_id], month: params[:month], year: params[:year], cash_id: @cash.id)
+          if @income_history.save
+            format.html { redirect_to cashes_path, notice: 'Cash was successfully created.' }
+          else
+            format.html { render :new }
+          end
+        else
+          format.html { redirect_to cashes_path, notice: 'Cash was successfully created.' }
+        end
       else
         format.html { render :new }
-        format.json { render json: @cash.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -95,6 +102,6 @@ class CashesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cash_params
-      params.permit(:income, :expenditure, :description, :date)
+      params.permit(:money, :description, :date, :status)
     end
 end

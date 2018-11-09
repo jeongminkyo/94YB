@@ -1,3 +1,70 @@
+<style>
+  .customradio {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 0px;
+    cursor: pointer;
+    font-size: 18px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  .radiotextsty {
+    color: black;
+    font-size: 18px;
+  }
+  .customradio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  /* Create a custom radio button */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 22px;
+    width: 22px;
+    background-color: white;
+    border-radius: 50%;
+    border:1px solid #BEBEBE;
+  }
+  /* On mouse-over, add a grey background color */
+  .customradio:hover input ~ .checkmark {
+    background-color: transparent;
+  }
+
+  /* When the radio button is checked, add a blue background */
+  .customradio input:checked ~ .checkmark {
+    background-color: white;
+    border:1px solid #BEBEBE;
+  }
+
+  /* Create the indicator (the dot/circle - hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  /* Show the indicator (dot/circle) when checked */
+  .customradio input:checked ~ .checkmark:after {
+    display: block;
+  }
+
+  /* Style the indicator (dot/circle) */
+  .customradio .checkmark:after {
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #A3A0FB;
+  }
+</style>
 <div class="modal fade" id="new_event">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -8,14 +75,42 @@
       <div class="modal-body">
         <div>
           <%= form_tag cashes_path, mothod: :post do %>
+            <div class="form-check-inline">
+              <label class="customradio"><span class="radiotextsty">수입</span>
+                <input type="radio" name="status" value="0" id="income">
+                <span class="checkmark"></span>
+              </label>        
+              <label class="customradio"><span class="radiotextsty">지출</span>
+                <input type="radio" name="status" value="1">
+                <span class="checkmark"></span>
+              </label>
+            </div><br>
             <label>날짜</label>
             <input type="text" name="date" id="date" class="form-control">
             <label>설명</label>
             <input name="description" class="form-control"/>
-            <label>입금</label>
-            <input name="income" class="form-control"/>
-            <label>출금</label>
-            <input name="expenditure" class="form-control"/>
+            <label>금액</label>
+            <input name="money" class="form-control"/>
+            <div id="additional_info_expenditure">
+              <label>이름</label>
+              <%= select_tag(:option, options_for_select(User.all.collect{|user| [user.display_name, user.id]}), class: 'form-control', name: 'user_id') %>
+              <label>월</label>
+              <select class="form-control" name="month">
+                <% (1..12).each do |month|%>
+                  <% if month == Time.now.strftime('%m').to_i %>
+                    <option selected="selected"><%= month %></option>
+                  <% else %>
+                    <option><%= month %></option>
+                  <% end %>
+                <% end %>
+              </select>
+              <label>년</label>
+              <select class="form-control" name="year">
+                <option><%= (Time.now - 1.years).strftime('%Y') %></option>
+                <option selected="selected"><%= Time.now.strftime('%Y') %></option>
+                <option><%= (Time.now + 1.years).strftime('%Y') %></option>
+              </select>
+            </div>
             <button type="submit" class="btn-sm" style="margin-top:10px">추가</button>
           <% end %>
         </div>
@@ -29,5 +124,10 @@
         $( "#date" ).datepicker({
             format: 'yyyy-mm-dd',
         });
+    });
+    $(function() {
+        $('input[name=status]').on('click init-post-format', function() {
+            $('#additional_info_expenditure').toggle($('#income').prop('checked'));
+        }).trigger('init-post-format');
     });
 </script>

@@ -35,27 +35,22 @@
       </li>
       <% @cashes.each do |cash| %>
         <li>
-          <a href="/cashes/<%=cash.id %>" class="link_post tit_line2">
+          <div class="link_post tit_line2">
             <span class="desc_post">
               <strong class="tit_post" style="display: inline-block"><%= cash.description %></strong>
-              <% if cash.income.present? %>
-                <strong class="tit_post" style="display: inline-block; float:right; margin-right:20px"><%= number_with_delimiter(cash.income) %></strong>
-              <% else %>
-                <strong class="tit_post" style="display: inline-block; float:right; margin-right:20px"><%= number_with_delimiter(cash.expenditure) %></strong>
-              <% end %>
-
+              <strong class="tit_post" style="display: inline-block; float:right; margin-right:20px"><%= number_with_delimiter(cash.money) %></strong>
             </span>
             <span class="data_info">
-              <% if cash.income.present? %>
+              <% if cash.status == Cash::Status::INCOME %>
                 <span class="txt_category">입금</span>
-              <% else %>
+              <% elsif cash.status == Cash::Status::EXPENDITURE %>
                 <span class="txt_category">출금</span>
               <% end %>
               <span class="txt_date">
                 <%= cash.date %>
               </span>
             </span>
-          </a>
+          </div>
         </li>
       <% end %>
     </ul>
