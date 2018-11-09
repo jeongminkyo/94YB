@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :notices do
     resources :notice_comments, only: [:create, :destroy]
   end
+
   resources :cashes
   resources :travel_post_attachments
   resources :travel_posts do
@@ -16,6 +17,10 @@ Rails.application.routes.draw do
     post 'register/info'=> :create, as: 'register'
   end
 
+  controller :kakao do
+    get '/keyboard' => :keyboard
+
+  end
   controller :post_like do
     post 'post_like' => :create
     delete 'post_like/:id' => :destroy, as: 'delete_post_like'
