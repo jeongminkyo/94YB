@@ -20,7 +20,12 @@ class KakaoController < ApplicationController
       message[:text] = '이름을 입력하세요'
     elsif USER_NAME_LIST.include?(params[:content])
       user = User.where('display_name like ?', '%' + params[:content] + '%').first
-      message[:text] = IncomeHistory.user_income_history(user).to_json(:except => :id)
+      user_histories = IncomeHistory.user_income_history(user)
+      message[:text] = ''
+      user_histories.each do |history|
+        text = history[:month].to_s + '월 : ' + history[:money].to_s + '원\n'
+        message[:text] += text
+      end
     else
       message[:text] = '잘못된 이름입니다. 다시 시도해주세요'
     end
