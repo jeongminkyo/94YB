@@ -23,7 +23,7 @@ class KakaoController < ApplicationController
       user_histories = IncomeHistory.user_income_history(user)
       message[:text] = ''
       user_histories.each do |history|
-        text = history[:month].to_s + '월 : ' + history[:money].to_s + '원\\n'
+        text = history[:month].to_s + '월 : ' + history[:money].to_s + '원' + "\n"
         message[:text] += text
       end
     else
