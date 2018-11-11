@@ -21,11 +21,11 @@ class KakaoController < ApplicationController
     elsif USER_NAME_LIST.include?(params[:content])
       user = User.where('display_name like ?', '%' + params[:content] + '%').first
       if user.present?
-        user_histories = IncomeHistory.user_income_history(user)
+        user_histories = user.cashes
         if user_histories.present?
           message[:text] = ''
           user_histories.each do |history|
-            text = history[:month].to_s + '월 : ' + history[:money].to_s + '원' + "\n"
+            text = history[:description].to_s + ' : ' + history[:money].to_s + '원' + "\n"
             message[:text] += text
           end
         else

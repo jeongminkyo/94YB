@@ -12,7 +12,7 @@ class User < ApplicationRecord
   has_many :notices
   has_many :notice_likes
   has_many :notice_comments
-  has_many :income_histories
+  has_many :cashes
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable

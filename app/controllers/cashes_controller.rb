@@ -46,51 +46,19 @@ class CashesController < ApplicationController
   def create
     if params[:status].to_i == Cash::Status::INCOME
       Wallet.first.income_to_wallet(params[:money].to_i)
-      @cash = Cash.new(cash_params)
     elsif params[:status].to_i == Cash::Status::EXPENDITURE
       Wallet.first.expenditure_to_wallet(params[:money].to_i)
-      @cash = Cash.new(cash_params)
+      params[:user_id] = User.find_by_email('admin@email.com').id
     end
+
+    @cash = Cash.new(cash_params)
 
     respond_to do |format|
       if @cash.save
-        if params[:user_id].present?
-          @income_history = IncomeHistory.new(user_id: params[:user_id], month: params[:month], year: params[:year], cash_id: @cash.id)
-          if @income_history.save
-            format.html { redirect_to cashes_path, notice: 'Cash was successfully created.' }
-          else
-            format.html { render :new }
-          end
-        else
-          format.html { redirect_to cashes_path, notice: 'Cash was successfully created.' }
-        end
+        format.html { redirect_to cashes_path, notice: 'Cash was successfully created.' }
       else
         format.html { render :new }
       end
-    end
-  end
-
-  # PATCH/PUT /cashes/1
-  # PATCH/PUT /cashes/1.json
-  def update
-    respond_to do |format|
-      if @cash.update(cash_params)
-        format.html { redirect_to @cash, notice: 'Cash was successfully updated.' }
-        format.json { render :show, status: :ok, location: @cash }
-      else
-        format.html { render :edit }
-        format.json { render json: @cash.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /cashes/1
-  # DELETE /cashes/1.json
-  def destroy
-    @cash.destroy
-    respond_to do |format|
-      format.html { redirect_to cashes_url, notice: 'Cash was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
@@ -102,6 +70,6 @@ class CashesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cash_params
-      params.permit(:money, :description, :date, :status)
+      params.permit(:money, :description, :date, :status, :user_id)
     end
 end

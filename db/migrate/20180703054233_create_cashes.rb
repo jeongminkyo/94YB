@@ -5,6 +5,7 @@ class CreateCashes < ActiveRecord::Migration[5.0]
       t.integer :money
       t.string :description
       t.integer :status
+      t.integer :user_id
       t.timestamps
     end
   end

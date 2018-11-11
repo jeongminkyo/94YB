@@ -94,22 +94,6 @@
             <div id="additional_info_expenditure">
               <label>이름</label>
               <%= select_tag(:option, options_for_select(User.all.collect{|user| [user.display_name, user.id]}), class: 'form-control', name: 'user_id') %>
-              <label>월</label>
-              <select class="form-control" name="month">
-                <% (1..12).each do |month|%>
-                  <% if month == Time.now.strftime('%m').to_i %>
-                    <option selected="selected"><%= month %></option>
-                  <% else %>
-                    <option><%= month %></option>
-                  <% end %>
-                <% end %>
-              </select>
-              <label>년</label>
-              <select class="form-control" name="year">
-                <option><%= (Time.now - 1.years).strftime('%Y') %></option>
-                <option selected="selected"><%= Time.now.strftime('%Y') %></option>
-                <option><%= (Time.now + 1.years).strftime('%Y') %></option>
-              </select>
             </div>
             <button type="submit" class="btn-sm" style="margin-top:10px">추가</button>
           <% end %>

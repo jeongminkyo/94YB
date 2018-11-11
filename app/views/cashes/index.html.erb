@@ -37,7 +37,11 @@
         <li>
           <div class="link_post tit_line2">
             <span class="desc_post">
-              <strong class="tit_post" style="display: inline-block"><%= cash.description %></strong>
+              <% if cash.status == Cash::Status::INCOME %>
+                <strong class="tit_post" style="display: inline-block"><%= cash.user.display_name %> <%= cash.description %></strong>
+              <% elsif cash.status == Cash::Status::EXPENDITURE %>
+                <strong class="tit_post" style="display: inline-block"><%= cash.description %></strong>
+              <% end %>
               <strong class="tit_post" style="display: inline-block; float:right; margin-right:20px"><%= number_with_delimiter(cash.money) %></strong>
             </span>
             <span class="data_info">
