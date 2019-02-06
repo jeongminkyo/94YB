@@ -35,6 +35,7 @@ class NoticesController < ApplicationController
 
   # GET /notices/1/edit
   def edit
+    @notice_attachment = @notice.notice_attachments.build
   end
 
   # POST /notices
@@ -51,10 +52,8 @@ class NoticesController < ApplicationController
           end
         end
         format.html { redirect_to notices_path, notice: 'Notice was successfully created.' }
-        format.json { render :show, status: :created, location: @notice }
       else
         format.html { render :new }
-        format.json { render json: @notice.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -64,11 +63,14 @@ class NoticesController < ApplicationController
   def update
     respond_to do |format|
       if @notice.update(notice_params)
+        if params[:notice_attachments].present?
+          params[:notice_attachments]['s3'].each do |a|
+            @notice_attachment = @notice.notice_attachments.create!(:s3 => a, :notice_id => @notice.id)
+          end
+        end
         format.html { redirect_to @notice, notice: 'Notice was successfully updated.' }
-        format.json { render :show, status: :ok, location: @notice }
       else
         format.html { render :edit }
-        format.json { render json: @notice.errors, status: :unprocessable_entity }
       end
     end
   end
