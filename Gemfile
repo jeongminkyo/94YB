@@ -46,7 +46,7 @@ gem 'bootstrap-datepicker-rails'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
-gem 'omniauth-google-oauth2', '0.5.4'
+gem 'omniauth-google-oauth2'
 gem 'omniauth-naver'
 
 #권한설정
