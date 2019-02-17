@@ -22,7 +22,7 @@ class CashesController < ApplicationController
   def index
     page = params[:page].blank? ? 1 : params[:page]
 
-    @cashes = Cash.all.order('id desc').page(page).per(LIST_PER_PAGE)
+    @cashes = Cash.all.order('date desc').page(page).per(LIST_PER_PAGE)
     @wallet = Wallet.first
   end
 
