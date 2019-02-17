@@ -46,9 +46,11 @@ class CashesController < ApplicationController
   def create
     if params[:status].to_i == Cash::Status::INCOME
       Wallet.first.income_to_wallet(params[:money].to_i)
+      params[:current_money] = Wallet.first.current_money
     elsif params[:status].to_i == Cash::Status::EXPENDITURE
       Wallet.first.expenditure_to_wallet(params[:money].to_i)
       params[:user_id] = User.find_by_email('admin@email.com').id
+      params[:current_money] = Wallet.first.current_money
     end
 
     @cash = Cash.new(cash_params)
@@ -70,6 +72,6 @@ class CashesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cash_params
-      params.permit(:money, :description, :date, :status, :user_id)
+      params.permit(:money, :description, :date, :status, :user_id, :current_money)
     end
 end
