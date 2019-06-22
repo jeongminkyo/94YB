@@ -70,6 +70,9 @@ gem 'fog-aws'
 # 페이징
 gem 'kaminari'
 
+#ruby version issue
+gem 'i18n', '~>1.5'
+
 # Rspec
 group :development, :test do
   gem 'rspec-rails'             # rails 지원하는 rspec
