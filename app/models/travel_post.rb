@@ -44,5 +44,30 @@ class TravelPost < ApplicationRecord
       end
       where_clause
     end
+
+    def travel_post_list(page)
+      travel_post = self.select('
+                travel_posts.id as id,
+                travel_posts.title as title,
+                travel_posts.context as context,
+                travel_posts.user_id as user_id,
+                users.display_name as display_name,
+                travel_posts.created_at as created_at
+                ')
+          .joins('JOIN users ON users.id = travel_posts.user_id')
+          .group('travel_posts.id')
+          .order('travel_posts.id DESC').page(page).per(LIST_PER_PAGE).as_json(include: :travel_post_attachments)
+
+      travel_post.each do |post|
+        post['created_at'] = post['created_at'].strftime('%Y-%m-%d %H:%M:%S')
+        new_attachments = []
+        post['travel_post_attachments'].each do |attachment|
+          url = attachment['s3'].url
+          new_data = { id: attachment['id'], url: url }
+          new_attachments.push(new_data)
+        end
+        notice['travel_post_attachments'] = new_attachments
+      end
+    end
   end
 end

@@ -14,5 +14,12 @@ module YB94
     config.time_zone = 'Seoul'
     config.active_record.default_timezone = :local
     config.active_record.time_zone_aware_attributes = false
+
+    config.middleware.insert_before 0, "Rack::Cors" do
+      allow do
+        origins '*'
+        resource '/api/v1/*', :headers => :any, :methods => [:get, :post, :options]
+      end
+    end
   end
 end
