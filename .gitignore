@@ -20,7 +20,6 @@
 .byebug_history
 
 *.gem
-Gemfile.lock
 /local_config/*
 .idea/
 atlassian-ide-plugin.xml
