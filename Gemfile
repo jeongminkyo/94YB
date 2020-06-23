@@ -56,6 +56,9 @@ gem 'authority'
 # 환경변수
 gem 'figaro'
 
+# CORS
+gem 'rack-cors'
+
 # Calendar
 gem 'simple_calendar', '~> 2.0'
 gem 'fullcalendar-rails'

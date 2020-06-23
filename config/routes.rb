@@ -1,5 +1,20 @@
 Rails.application.routes.draw do
 
+  namespace :api do
+    namespace :v1 do
+      controller :notices do
+        get 'notices' => :notice_list
+      end
+
+      controller :travel_posts do
+        get 'travel_posts' => :travel_post_list
+      end
+
+      controller :cashes do
+        get 'cashes' => :cash_list
+      end
+    end
+  end
   resources :notice_attachments
   resources :notices do
     resources :notice_comments, only: [:create, :destroy]
