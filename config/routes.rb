@@ -12,6 +12,11 @@ Rails.application.routes.draw do
 
       controller :cashes do
         get 'cashes' => :cash_list
+        post 'cashes' => :create¡
+      end
+
+      controller :users do
+        get 'user_list' => :user_list
       end
     end
   end

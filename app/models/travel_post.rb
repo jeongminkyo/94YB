@@ -66,7 +66,7 @@ class TravelPost < ApplicationRecord
           new_data = { id: attachment['id'], url: url }
           new_attachments.push(new_data)
         end
-        notice['travel_post_attachments'] = new_attachments
+        post['travel_post_attachments'] = new_attachments
       end
     end
   end
