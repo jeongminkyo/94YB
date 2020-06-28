@@ -57,7 +57,7 @@ class TravelPost < ApplicationRecord
           .joins(:user)
           .left_joins(:travel_comments)
           .group('travel_posts.id')
-          .order('travel_posts.id DESC').page(page).per(LIST_PER_PAGE).as_json(include: :travel_post_attachments)
+          .order('travel_posts.id DESC').page(page).per(LIST_PER_PAGE).as_json(include: [:travel_post_attachments, :travel_comments])
 
       travel_post.each do |post|
         post['created_at'] = post['created_at'].strftime('%Y-%m-%d %H:%M:%S')
@@ -71,12 +71,12 @@ class TravelPost < ApplicationRecord
         post['attachments'] = new_attachments
 
         new_comments = []
-        post['travel_posts_comments'].each do |comment|
+        post['travel_comments'].each do |comment|
           display_name = User.find_by_id(comment['user_id']).display_name
           new_data = { id: comment['id'], content: comment['body'], display_name: display_name, created_at: comment['created_at'].strftime('%Y-%m-%d %H:%M:%S') }
           new_comments.push(new_data)
         end
-        post.except!('travel_posts_comments')
+        post.except!('travel_comments')
         post['comments'] = new_comments
       end
     end
