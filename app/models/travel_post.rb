@@ -71,13 +71,13 @@ class TravelPost < ApplicationRecord
         post['attachments'] = new_attachments
 
         new_comments = []
-        notice['travel_posts_comments'].each do |comment|
+        post['travel_posts_comments'].each do |comment|
           display_name = User.find_by_id(comment['user_id']).display_name
           new_data = { id: comment['id'], content: comment['body'], display_name: display_name, created_at: comment['created_at'].strftime('%Y-%m-%d %H:%M:%S') }
           new_comments.push(new_data)
         end
-        notice.except!('travel_posts_comments')
-        notice['comments'] = new_comments
+        post.except!('travel_posts_comments')
+        post['comments'] = new_comments
       end
     end
 
