@@ -1,7 +1,7 @@
 class TravelPost < ApplicationRecord
   resourcify
   include Authority::Abilities
-
+  belongs_to :user
   has_many :travel_comments, dependent: :destroy
   has_many :travel_post_attachments
   has_many :travel_post_likes
@@ -54,7 +54,8 @@ class TravelPost < ApplicationRecord
                 users.display_name as display_name,
                 travel_posts.created_at as created_at
                 ')
-          .joins('JOIN users ON users.id = travel_posts.user_id')
+          .joins(:user)
+          .left_joins(:travel_comments)
           .group('travel_posts.id')
           .order('travel_posts.id DESC').page(page).per(LIST_PER_PAGE).as_json(include: :travel_post_attachments)
 
@@ -68,7 +69,24 @@ class TravelPost < ApplicationRecord
         end
         post.except!('travel_post_attachments')
         post['attachments'] = new_attachments
+
+        new_comments = []
+        notice['travel_posts_comments'].each do |comment|
+          display_name = User.find_by_id(comment['user_id']).display_name
+          new_data = { id: comment['id'], content: comment['body'], display_name: display_name, created_at: comment['created_at'].strftime('%Y-%m-%d %H:%M:%S') }
+          new_comments.push(new_data)
+        end
+        notice.except!('travel_posts_comments')
+        notice['comments'] = new_comments
       end
+    end
+
+    def total_page
+      total_page = self.all.count / LIST_PER_PAGE  + 1
+      if self.all.count % LIST_PER_PAGE == 0
+        total_page = self.all.count / LIST_PER_PAGE
+      end
+      total_page
     end
   end
 end

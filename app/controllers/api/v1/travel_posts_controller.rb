@@ -7,7 +7,11 @@ module Api::V1
 
       @travel_post = TravelPost.travel_post_list(page)
 
-      render json: @travel_post
+      travel_post_list = {
+          total_page: TravelPost.total_page,
+          travel_posts: @travel_post
+      }
+      render json: travel_post_list
     end
 
 
