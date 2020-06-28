@@ -20,13 +20,9 @@ class Cash < ApplicationRecord
                    cashes.description,
                    cashes.money,
                    cashes.status,
-                   cashes.created_at,
+                   cashes.date,
                    users.display_name')
           .joins(:user).order('date desc, id desc').page(page).per(LIST_PER_PAGE).as_json
-
-      cashes.each do |cash|
-        cash['created_at'] = cash['created_at'].strftime('%Y-%m-%d')
-      end
     end
   end
 end
