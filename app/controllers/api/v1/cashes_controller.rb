@@ -8,9 +8,11 @@ module Api::V1
       page = params[:page].blank? ? 1 : params[:page]
 
       @cashes = Cash.cash_list(page)
+      total_page = Cash.total_page
       @wallet = Wallet.first
 
       cash_list = {
+          total_page: total_page,
           total_cash: @wallet.current_money,
           total_cash_update_at: @wallet.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
           cashes: @cashes

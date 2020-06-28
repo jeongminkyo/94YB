@@ -24,5 +24,13 @@ class Cash < ApplicationRecord
                    users.display_name')
           .joins(:user).order('date desc, id desc').page(page).per(LIST_PER_PAGE).as_json
     end
+
+    def total_page
+      total_page = self.all.count / LIST_PER_PAGE  + 1
+      if self.all.count % LIST_PER_PAGE == 0
+        total_page = self.all.count / LIST_PER_PAGE
+      end
+      total_page
+    end
   end
 end

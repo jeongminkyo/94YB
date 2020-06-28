@@ -7,7 +7,11 @@ module Api::V1
 
       @notices = Notice.notice_list(page)
 
-      render json: @notices
+      notice_list = {
+          total_page: Notice.total_page,
+          notices: @notices
+      }
+      render json: notice_list
     end
 
 
