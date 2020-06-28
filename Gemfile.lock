@@ -69,9 +69,9 @@ GEM
       railties (>= 3.0)
     bootstrap-daterangepicker-rails (3.0.4)
       railties (>= 4.0)
-    bootstrap-sass (3.3.7)
+    bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
-      sass (>= 3.3.4)
+      sassc (>= 2.0.0)
     builder (3.2.4)
     byebug (10.0.2)
     capistrano (3.14.1)
@@ -368,7 +368,7 @@ DEPENDENCIES
   authority
   bootstrap-datepicker-rails
   bootstrap-daterangepicker-rails
-  bootstrap-sass (~> 3.3.6)
+  bootstrap-sass (~> 3.4.1)
   byebug
   capistrano (~> 3.7)
   capistrano-bundler
@@ -392,6 +392,7 @@ DEPENDENCIES
   mini_magick
   momentjs-rails
   mysql2 (>= 0.3.18, < 0.6.0)
+  nokogiri (= 1.9.1)
   omniauth
   omniauth-facebook
   omniauth-google-oauth2
