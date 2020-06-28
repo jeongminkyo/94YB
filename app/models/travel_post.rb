@@ -66,7 +66,8 @@ class TravelPost < ApplicationRecord
           new_data = { id: attachment['id'], url: url }
           new_attachments.push(new_data)
         end
-        post['travel_post_attachments'] = new_attachments
+        post.except!('travel_post_attachments')
+        post['attachments'] = new_attachments
       end
     end
   end

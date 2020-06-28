@@ -45,7 +45,8 @@ class Notice < ApplicationRecord
           new_data = { id: attachment['id'], url: url }
           new_attachments.push(new_data)
         end
-        notice['notice_attachments'] = new_attachments
+        notice.except!('notice_attachments')
+        notice['attachments'] = new_attachments
       end
     end
   end
