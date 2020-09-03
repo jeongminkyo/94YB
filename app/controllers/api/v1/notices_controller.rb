@@ -14,6 +14,28 @@ module Api::V1
       render json: notice_list
     end
 
+    def create
+
+    end
+
+    def update
+
+    end
+
+    def delete
+
+    end
+
+    def comment_create
+      params[:notice_comment][:user_id] = current_user.id
+      @notice_comment = @notice.notice_comments.new(notice_comment_params)
+      @notice_comment.save
+    end
+
+    def comment_destroy
+      authorize_action_for @notice_comment
+      @notice_comment.destroy
+    end
 
   end
 end
