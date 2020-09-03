@@ -21,6 +21,25 @@ module Api::V1
       render json: cash_list
     end
 
+    def user_cash_list
+      page = params[:page].blank? ? 1 : params[:page]
+      user_id = params[:user_id]
+      @cashes = Cash.user_cash_list(user_id, page)
+
+      cash_list = {
+          total_page: Cash.user_total_page(user_id),
+          cashes: @cashes
+      }
+      render json: cash_list
+    end
+
+    def account_info
+      render json: {
+          bank: '농협',
+          account_num: '356-0022-3397-93'
+      }
+    end
+
     def create
       begin
         if params[:status].to_i == Cash::Status::INCOME

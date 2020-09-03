@@ -13,6 +13,8 @@ Rails.application.routes.draw do
       controller :cashes do
         get 'cashes' => :cash_list
         post 'cashes' => :create
+        get '/:user_id/cashes' => :user_cash_list
+        get 'account_info' => :account_info
       end
 
       controller :users do

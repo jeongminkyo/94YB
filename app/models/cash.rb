@@ -25,10 +25,28 @@ class Cash < ApplicationRecord
           .joins(:user).order('date desc, id desc').page(page).per(LIST_PER_PAGE).as_json
     end
 
+    def user_cash_list(user_id, page)
+      cashes = self.select('cashes.id,
+                   cashes.description,
+                   cashes.money,
+                   cashes.status,
+                   cashes.date,
+                   users.display_name')
+                   .joins(:user).where(user_id: user_id).order('date desc, id desc').page(page).per(LIST_PER_PAGE).as_json
+    end
+
     def total_page
       total_page = self.all.count / LIST_PER_PAGE  + 1
       if self.all.count % LIST_PER_PAGE == 0
         total_page = self.all.count / LIST_PER_PAGE
+      end
+      total_page
+    end
+
+    def user_total_page(user_id)
+      total_page = self.where(user_id: user_id).count / LIST_PER_PAGE  + 1
+      if self.where(user_id: user_id).count % LIST_PER_PAGE == 0
+        total_page = self.where(user_id: user_id).count / LIST_PER_PAGE
       end
       total_page
     end
