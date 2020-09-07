@@ -1,0 +1,3 @@
+module YbLoggers::LogEventCodes
+
+end
