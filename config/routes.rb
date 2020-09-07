@@ -21,6 +21,12 @@ Rails.application.routes.draw do
         get 'user_list' => :user_list
       end
     end
+
+    namespace :auth do
+      controller :users do
+        post 'sign_in' => :sign_in
+      end
+    end
   end
   resources :notice_attachments
   resources :notices do

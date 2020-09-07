@@ -1,7 +1,7 @@
 module Api::V1
   class CashesController < ApplicationController
 
-    skip_before_filter :verify_authenticity_token
+    skip_before_action :verify_authenticity_token
 
     # GET /api/v1/cashes
     def cash_list
