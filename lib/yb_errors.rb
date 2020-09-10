@@ -56,9 +56,8 @@ module YbErrors
     end
   end
 
-  # 컨트롤러 진입 시 내부 서버 에러(400)
   class InternalServer < Logic
-    def initialize(options, error: Errors::BAD_REQUEST)
+    def initialize(options, error: Errors::INTERNAL_SERVER_ERROR)
       initialize_helper(error, :bad_request, options)
     end
   end

@@ -1,17 +1,24 @@
 module Api::V1
   class TravelPostsController < ApplicationController
 
-    # GET /api/v1/notices
+    skip_before_action :verify_authenticity_token
+    prepend_before_action only: [:travel_post_list] do
+      set_user_by_access_token(params[:accessToken])
+    end
+
+    before_action only: [:travel_post_list] do
+      check_authenticate_member(@user)
+    end
+
+    # GET /api/v1/travel_posts
     def travel_post_list
+      log_options = { log_event_code: TRAVEL_POST_LIST_ERROR }
       page = params[:page].blank? ? 1 : params[:page]
 
-      @travel_post = TravelPost.travel_post_list(page)
+      travel_posts = TravelPostService.travel_post_list(page)
+      raise InternalServer.new(log_options.merge({ log_message: 'cash list load fail'})) unless travel_posts.present?
 
-      travel_post_list = {
-          total_page: TravelPost.total_page,
-          travel_posts: @travel_post
-      }
-      render json: travel_post_list
+      render yb:travel_posts, status: :ok
     end
 
 
