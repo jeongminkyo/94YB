@@ -13,12 +13,20 @@ Rails.application.routes.draw do
       controller :cashes do
         get 'cashes' => :cash_list
         post 'cashes' => :create
-        get '/:user_id/cashes' => :user_cash_list
+        get 'user_cashes' => :user_cash_list
         get 'account_info' => :account_info
       end
 
       controller :users do
         get 'user_list' => :user_list
+      end
+    end
+
+    namespace :auth do
+      controller :users do
+        post 'sign_in' => :sign_in
+        post 'sign_up' => :sign_up
+        get 'me' => :me
       end
     end
   end
@@ -68,4 +76,6 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   root 'welcome#index'
+
+  match '*not_found', to: 'error#not_found', via: [:all]
 end

@@ -15,6 +15,8 @@ module YB94
     config.active_record.default_timezone = :local
     config.active_record.time_zone_aware_attributes = false
 
+    config.eager_load_paths += Dir["#{config.root}/lib/**/"]
+
     config.middleware.insert_before 0, "Rack::Cors" do
       allow do
         origins '*'

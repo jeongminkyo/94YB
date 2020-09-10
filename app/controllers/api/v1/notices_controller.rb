@@ -1,17 +1,24 @@
 module Api::V1
   class NoticesController < ApplicationController
 
+    skip_before_action :verify_authenticity_token
+    prepend_before_action only: [:notice_list] do
+      set_user_by_access_token(params[:accessToken])
+    end
+
+    before_action only: [:notice_list] do
+      check_authenticate_member(@user)
+    end
+
     # GET /api/v1/notices
     def notice_list
+      log_options = { log_event_code: NOTICE_LIST_ERROR }
       page = params[:page].blank? ? 1 : params[:page]
 
-      @notices = Notice.notice_list(page)
+      notice_list = NoticeService.notice_list(page)
+      raise InternalServer.new(log_options.merge({ log_message: 'cash list load fail'})) unless notice_list.present?
 
-      notice_list = {
-          total_page: Notice.total_page,
-          notices: @notices
-      }
-      render json: notice_list
+      render yb:notice_list, status: :ok
     end
 
     def create

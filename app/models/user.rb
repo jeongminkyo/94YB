@@ -13,6 +13,8 @@ class User < ApplicationRecord
   has_many :notice_likes
   has_many :notice_comments
   has_many :cashes
+  has_one :user_token
+  has_one :identity
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
@@ -75,6 +77,10 @@ class User < ApplicationRecord
 
     def user_list
       self.select('id, display_name').all
+    end
+
+    def find_by_provider_and_email(email, provider)
+      User.joins(:identity).where('email =? and provider = ?', email, provider).first
     end
   end
 

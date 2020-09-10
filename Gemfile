@@ -76,12 +76,14 @@ gem 'kaminari'
 #ruby version issue
 gem 'i18n', '~>1.5'
 
-# Rspec
-group :development, :test do
-  gem 'rspec-rails'             # rails 지원하는 rspec
-  gem 'factory_bot_rails'       # 테스트 위한 DB의 데이타를 쉽게 생성
-  gem 'faker'                   # 샘플 테스트 데이터를 쉽게 생성
-end
+# oj
+gem 'oj', '~> 3.7', '>= 3.7.12'
+
+# JWT
+gem 'jwt', '2.2.1'
+gem 'hashie', '4.1.0'
+
+gem 'google-id-token'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -95,6 +97,23 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+end
+
+# Rspec
+group :test do
+  # Rspec
+  gem 'rspec-rails'
+  gem 'guard-rspec'
+  gem 'factory_bot'
+  gem 'factory_bot_rails'
+  gem 'simplecov'
+  gem 'simplecov-json'
+  gem 'simplecov-rcov'
+  gem 'faker', '1.9.1'
+  gem 'webmock'
+  gem 'spring'
+  gem 'spring-commands-rspec'
+  gem 'rails-controller-testing'
 end
 
 gem 'capistrano', '~> 3.7'
