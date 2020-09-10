@@ -79,6 +79,12 @@ gem 'i18n', '~>1.5'
 # oj
 gem 'oj', '~> 3.7', '>= 3.7.12'
 
+# JWT
+gem 'jwt', '2.2.1'
+gem 'hashie', '4.1.0'
+
+gem 'google-id-token'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri

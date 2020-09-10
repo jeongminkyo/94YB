@@ -1,7 +1,7 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  Rails.logger = CashfeedLoggers::ApplicationLogger.new
+  Rails.logger = YbLoggers::ApplicationLogger.new
   # Code is not reloaded between requests.
   config.cache_classes = true
 
