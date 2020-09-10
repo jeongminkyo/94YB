@@ -15,8 +15,8 @@ class AuthService < ApplicationService
       {
           access_token: access_token,
           refresh_token: refresh_token,
-          email: user.email,
-          display_name: user.display_name
+          email: user.present? ? user.email : nil,
+          display_name: user.present? ? user.display_name : nil
       }
     rescue => e
       Rails.logger.warn(e, {}, { social_token: social_token }, SOCIAL_SIGN_IN_ERROR)
@@ -73,13 +73,18 @@ class AuthService < ApplicationService
     end
 
     def build_sign_up_user(payload, provider)
-      user = User.new(params[:user])
+      color = Random.rand(255).to_s(16) + Random.rand(255).to_s(16) + Random.rand(255).to_s(16)
+      user = User.new(
+          email: payload['email'],
+          password: Devise.friendly_token[0,20],
+          color: '#' + color,
+          display_name: payload['name']
+      )
+
       user.build_identity(
           uid: payload['sub'],
           :provider => provider
       )
-
-      user.save!
 
       # Access_token 생성
       access_token = TokenService.create_auth_token(Time.now, user, TokenService::TOKEN_TYPE::ACCESS_TOKEN, TokenService::TOKEN_EXPIRE::ACCESS_TOKEN)
@@ -88,6 +93,11 @@ class AuthService < ApplicationService
       # Refresh Token 생성
       refresh_token = TokenService.create_auth_token(Time.now, user, TokenService::TOKEN_TYPE::REFRESH_TOKEN, TokenService::TOKEN_EXPIRE::REFRESH_TOKEN)
       raise 'refresh_token not found' if refresh_token.blank?
+
+      user.build_user_token(
+          refresh_token: refresh_token
+      )
+      user.save!
 
       {
           access_token: access_token,
