@@ -1,36 +1,34 @@
 module Api::V1
   class CashesController < ApplicationController
 
-    skip_before_filter :verify_authenticity_token
+    skip_before_action :verify_authenticity_token
+    prepend_before_action only: [:cash_list, :user_cash_list] do
+      set_user_by_access_token(params[:accessToken])
+    end
+
+    before_action only: [:cash_list, :user_cash_list] do
+      check_authenticate_member(@user)
+    end
 
     # GET /api/v1/cashes
     def cash_list
+      log_options = { log_event_code: CASH_LIST_ERROR }
       page = params[:page].blank? ? 1 : params[:page]
 
-      @cashes = Cash.cash_list(page)
-      total_page = Cash.total_page
-      @wallet = Wallet.first
+      cash_list = CashService.cash_list(page)
+      raise InternalServer.new(log_options.merge({ log_message: 'cash list load fail' })) unless cash_list.present?
 
-      cash_list = {
-          total_page: total_page,
-          total_cash: @wallet.current_money,
-          total_cash_update_at: @wallet.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
-          cashes: @cashes
-      }
-
-      render json: cash_list
+      render yb:cash_list, status: :ok
     end
 
     def user_cash_list
+      log_options = { log_event_code: CASH_LIST_ERROR }
       page = params[:page].blank? ? 1 : params[:page]
-      user_id = params[:user_id]
-      @cashes = Cash.user_cash_list(user_id, page)
 
-      cash_list = {
-          total_page: Cash.user_total_page(user_id),
-          cashes: @cashes
-      }
-      render json: cash_list
+      cash_list = CashService.user_cash_list(@user, page)
+      raise InternalServer.new(log_options.merge({ log_message: 'cash list load fail'})) unless cash_list.present?
+
+      render yb:cash_list, status: :ok
     end
 
     def account_info
