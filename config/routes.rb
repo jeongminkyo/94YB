@@ -26,7 +26,7 @@ Rails.application.routes.draw do
       controller :users do
         post 'sign_in' => :sign_in
         post 'sign_up' => :sign_up
-        get 'me' => :me
+        post 'token_renewal' => :token_renewal
       end
     end
   end

@@ -13,5 +13,5 @@ module Errors
 
 
   INVALID_SERVICE_PARAMETER = [1110, '요청에 실패했습니다.']
-  VALIDATION_FAILED = [1111, '']
+  VALIDATION_FAILED = [1111, '인증에 실패했습니다.']
 end

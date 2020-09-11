@@ -8,8 +8,8 @@ module TokenService
   end
 
   module TOKEN_EXPIRE
-    ACCESS_TOKEN = 7.days
-    REFRESH_TOKEN = 1.years
+    ACCESS_TOKEN = 2.hours
+    REFRESH_TOKEN = 2.months
   end
 
   ISS = 'yb94'
@@ -38,6 +38,17 @@ module TokenService
       additional_infos = { token: token, decode_token: token_obj }
       Rails.logger.warn(e, nil, additional_infos, ::YbLoggers::LogEventCodes::VALID_TOKEN_ERROR)
       false
+    end
+
+    def token_expire_over_ten_days?(token)
+      token_expire_date = Time.at(token['exp']).to_datetime
+      return false if token_expire_date < Time.now + 10.days
+
+      true
+    rescue => e
+      additional_infos = { token: token }
+      Rails.logger.warn(e, nil, additional_infos, ::YbLoggers::LogEventCodes::VALID_TOKEN_ERROR)
+      raise e
     end
 
     def create_auth_token(current_time, user, token_type, expire)
