@@ -24,15 +24,12 @@ module Api::Auth
       render yb: result, status: :ok
     end
 
-    def acceess_token_renewal(refresh_token)
-    end
+    def token_renewal
+      log_options = { log_event_code: TOKEN_RENEWAL_ERROR }
+      raise InvalidParameter.new(log_options.merge({ log_message: 'idToken is nil' })) unless params[:refreshToken].present?
 
-    def me
-      log_options = { log_event_code: SOCIAL_SIGN_IN_ERROR }
-      raise InvalidParameter.new(log_options.merge({ log_message: 'access_token is nil' })) unless params[:accessToken].present?
-
-      result = AuthService.me(params[:accessToken])
-      raise InternalServer.new(log_options.merge({ log_message: 'me user not found' })) unless result.present?
+      result = AuthService.renewal_token(params[:refreshToken])
+      raise InternalServer.new(log_options.merge({ log_message: 'token renewal fail' })) unless result.present?
 
       render yb: result, status: :ok
     end
