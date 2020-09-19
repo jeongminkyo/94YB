@@ -7,7 +7,7 @@ set :repo_url, 'https://github.com/jeongminkyo/94YB.git'
 set :deploy_to, '/var/www/94YB'
 set :bundle_flags, ""
 set :use_sudo, true
-set :rbenv_ruby, '2.2.4'
+set :rbenv_ruby, '2.5.3'
 
 set :passenger_restart_with_sudo, true
 set :passenger_restart_with_touch, true
