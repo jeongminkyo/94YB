@@ -62,7 +62,7 @@ module TokenService
       token
     rescue => e
       additional_info = { message: e.to_s }
-      Rails.logger.warn('create auth token', nil, additional_info, ::YbLoggers::LogEventCodes::VALID_TOKEN_ERROR)
+      Rails.logger.warn(e, nil, additional_info, ::YbLoggers::LogEventCodes::VALID_TOKEN_ERROR)
       nil
     end
 
