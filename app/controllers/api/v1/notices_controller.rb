@@ -16,7 +16,8 @@ module Api::V1
       page = params[:page].blank? ? 1 : params[:page]
 
       notice_list = NoticeService.notice_list(page)
-      raise InternalServer.new(log_options.merge({ log_message: 'cash list load fail'})) unless notice_list.present?
+
+      raise InternalServer.new(log_options.merge({ log_message: 'notice list load fail'})) if notice_list.nil?
 
       render yb:notice_list, status: :ok
     end
