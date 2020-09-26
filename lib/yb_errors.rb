@@ -58,7 +58,7 @@ module YbErrors
 
   class InternalServer < Logic
     def initialize(options, error: Errors::INTERNAL_SERVER_ERROR)
-      initialize_helper(error, :bad_request, options)
+      initialize_helper(error, :internal_server_error, options)
     end
   end
 end

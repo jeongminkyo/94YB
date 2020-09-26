@@ -121,4 +121,33 @@ RSpec.configure do |config|
     # `true` in RSpec 4.
     mocks.verify_partial_doubles = true
   end
+
+  RSpec::Matchers.define :hash_including? do |hash_including|
+    match do |actual|
+      match_result = false
+      actual&.each do |hash|
+        if hash_including === hash #<RSpec::Mocks::ArgumentMatchers::HashIncludingMatcher>
+          match_result = true
+          break
+        end
+      end
+      return match_result
+    end
+  end
+
+  RSpec::Matchers.define :equal_exception? do |expect_message|
+    match do |exception_object|
+      if expect_message.present?
+        if exception_object.kind_of?(YbErrors::Logic) && exception_object.respond_to?(:log_message)
+          exception_object.log_message == expect_message
+        elsif exception_object.is_a?(Exception)
+          exception_object.message == expect_message
+        else
+          exception_object == expect_message
+        end
+      else
+        return false
+      end
+    end
+  end
 end

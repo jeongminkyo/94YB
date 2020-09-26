@@ -3,7 +3,7 @@ module Api::V1
 
     skip_before_action :verify_authenticity_token
     prepend_before_action only: [:travel_post_list] do
-      set_user_by_access_token(params[:accessToken])
+      set_user_by_access_token(request.headers['X-YB-ACCESS-TOKEN'])
     end
 
     before_action only: [:travel_post_list] do
@@ -16,7 +16,7 @@ module Api::V1
       page = params[:page].blank? ? 1 : params[:page]
 
       travel_posts = TravelPostService.travel_post_list(page)
-      raise InternalServer.new(log_options.merge({ log_message: 'cash list load fail'})) unless travel_posts.present?
+      raise InternalServer.new(log_options.merge({ log_message: 'travel_post list load fail'})) unless travel_posts.present?
 
       render yb:travel_posts, status: :ok
     end

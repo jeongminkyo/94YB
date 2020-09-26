@@ -29,7 +29,6 @@ class Notice < ApplicationRecord
                 notices.id as id,
                 notices.title as title,
                 notices.context as context,
-                notices.user_id as user_id,
                 users.display_name as display_name,
                 notices.created_at as created_at
                 ')

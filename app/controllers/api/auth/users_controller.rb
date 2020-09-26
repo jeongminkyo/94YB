@@ -26,7 +26,7 @@ module Api::Auth
 
     def token_renewal
       log_options = { log_event_code: TOKEN_RENEWAL_ERROR }
-      raise InvalidParameter.new(log_options.merge({ log_message: 'idToken is nil' })) unless params[:refreshToken].present?
+      raise InvalidParameter.new(log_options.merge({ log_message: 'refreshToken is nil' })) unless params[:refreshToken].present?
 
       result = AuthService.renewal_token(params[:refreshToken])
       raise InternalServer.new(log_options.merge({ log_message: 'token renewal fail' })) unless result.present?
