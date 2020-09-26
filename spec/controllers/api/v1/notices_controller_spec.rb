@@ -7,6 +7,7 @@ RSpec.describe Api::V1::NoticesController, type: :controller do
     before(:each) do
       @user = create(:user, :with_token, :with_member_role)
       @wallet = create(:wallet)
+      @params = {}
       init_header
     end
 
@@ -16,7 +17,8 @@ RSpec.describe Api::V1::NoticesController, type: :controller do
         get :notice_list, params: @params
       end
 
-      it "params에 accessToken이 없는 경우 status_code 401 오류와 message를 반환한다." do
+      it "header에 accessToken이 없는 경우 status_code 401 오류와 message를 반환한다." do
+        request.headers['X-YB-ACCESS-TOKEN'] = nil
         get :notice_list, params: {}
         expect(response.status).to eq Errors::UNAUTHORIZED_ERROR[0]
         body = Oj.load(response.body, symbol_keys: true)
@@ -25,8 +27,8 @@ RSpec.describe Api::V1::NoticesController, type: :controller do
 
       it "params에 accessToken이 유효기간이 만료된 경우 status_code 401 오류와 message를 반환한다." do
         accessToken = TokenService.create_auth_token(Time.new(1994,10,21), @user, TokenService::TOKEN_TYPE::ACCESS_TOKEN, TokenService::TOKEN_EXPIRE::ACCESS_TOKEN)
-        params = { accessToken: accessToken }
-        get :notice_list, params: params
+        request.headers['X-YB-ACCESS-TOKEN'] = accessToken
+        get :notice_list, params: {}
         expect(response.status).to eq Errors::UNAUTHORIZED_ERROR[0]
         body = Oj.load(response.body, symbol_keys: true)
         expect(body[:message]).to eq Errors::UNAUTHORIZED_ERROR[1]
@@ -34,9 +36,9 @@ RSpec.describe Api::V1::NoticesController, type: :controller do
 
       it '요청한 user의 권한이 없는 경우, status_code 401 오류와 message를 반환한다.' do
         user = create(:user, :with_token)
-        member_params = {}
-        member_params[:accessToken] =TokenService.create_auth_token(Time.now, user, TokenService::TOKEN_TYPE::ACCESS_TOKEN, TokenService::TOKEN_EXPIRE::ACCESS_TOKEN)
-        get :notice_list, params: member_params
+        accessToken =TokenService.create_auth_token(Time.now, user, TokenService::TOKEN_TYPE::ACCESS_TOKEN, TokenService::TOKEN_EXPIRE::ACCESS_TOKEN)
+        request.headers['X-YB-ACCESS-TOKEN'] = accessToken
+        get :notice_list, params: {}
         expect(response.status).to eq Errors::UNAUTHORIZED_ERROR[0]
         body = Oj.load(response.body, symbol_keys: true)
         expect(body[:message]).to eq Errors::UNAUTHORIZED_ERROR[1]
@@ -76,8 +78,6 @@ RSpec.describe Api::V1::NoticesController, type: :controller do
 end
 
 def init_header
-  # request.headers['X-G-AD-ID'] = 'b1756b75-05de-403d-beee-ec4e14b77eec'
-  # request.headers['X-APP-CODE'] = 'a105fa1c-fa56-4911-9fb9-e550c1904a6d'
-  @params = {}
-  @params[:accessToken] =TokenService.create_auth_token(Time.now, @user, TokenService::TOKEN_TYPE::ACCESS_TOKEN, TokenService::TOKEN_EXPIRE::ACCESS_TOKEN)
+  access_token = TokenService.create_auth_token(Time.now, @user, TokenService::TOKEN_TYPE::ACCESS_TOKEN, TokenService::TOKEN_EXPIRE::ACCESS_TOKEN)
+  request.headers['X-YB-ACCESS-TOKEN'] = access_token
 end

@@ -3,7 +3,7 @@ module Api::V1
 
     skip_before_action :verify_authenticity_token
     prepend_before_action only: [:cash_list, :user_cash_list] do
-      set_user_by_access_token(params[:accessToken])
+      set_user_by_access_token(request.headers['X-YB-ACCESS-TOKEN'])
     end
 
     before_action only: [:cash_list, :user_cash_list] do
