@@ -12,7 +12,7 @@ class Cash < ApplicationRecord
 
   class << self
     def user_cash_history(user)
-      cash_history = user.cashes
+      user.cashes
     end
 
     def cash_list(page)

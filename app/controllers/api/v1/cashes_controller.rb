@@ -3,7 +3,7 @@ module Api::V1
 
     skip_before_action :verify_authenticity_token
     prepend_before_action only: [:cash_list, :user_cash_list] do
-      set_user_by_access_token(params[:accessToken])
+      set_user_by_access_token(request.headers['X-YB-ACCESS-TOKEN'])
     end
 
     before_action only: [:cash_list, :user_cash_list] do
@@ -16,7 +16,7 @@ module Api::V1
       page = params[:page].blank? ? 1 : params[:page]
 
       cash_list = CashService.cash_list(page)
-      raise InternalServer.new(log_options.merge({ log_message: 'cash list load fail' })) unless cash_list.present?
+      raise InternalServer.new(log_options.merge({ log_message: 'cash list load fail' })) if cash_list.nil?
 
       render yb:cash_list, status: :ok
     end
@@ -26,7 +26,7 @@ module Api::V1
       page = params[:page].blank? ? 1 : params[:page]
 
       cash_list = CashService.user_cash_list(@user, page)
-      raise InternalServer.new(log_options.merge({ log_message: 'cash list load fail'})) unless cash_list.present?
+      raise InternalServer.new(log_options.merge({ log_message: 'cash list load fail'})) if cash_list.nil?
 
       render yb:cash_list, status: :ok
     end

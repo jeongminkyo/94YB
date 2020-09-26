@@ -3,7 +3,7 @@ module Api::V1
 
     skip_before_action :verify_authenticity_token
     prepend_before_action only: [:notice_list] do
-      set_user_by_access_token(params[:accessToken])
+      set_user_by_access_token(request.headers['X-YB-ACCESS-TOKEN'])
     end
 
     before_action only: [:notice_list] do
@@ -16,7 +16,8 @@ module Api::V1
       page = params[:page].blank? ? 1 : params[:page]
 
       notice_list = NoticeService.notice_list(page)
-      raise InternalServer.new(log_options.merge({ log_message: 'cash list load fail'})) unless notice_list.present?
+
+      raise InternalServer.new(log_options.merge({ log_message: 'notice list load fail'})) if notice_list.nil?
 
       render yb:notice_list, status: :ok
     end
