@@ -6,7 +6,6 @@ RSpec.describe Api::V1::NoticesController, type: :controller do
     # header
     before(:each) do
       @user = create(:user, :with_token, :with_member_role)
-      @wallet = create(:wallet)
       @params = {}
       init_header
     end
@@ -59,6 +58,33 @@ RSpec.describe Api::V1::NoticesController, type: :controller do
         expect(body.key? :total_page).to eq true
         expect(body.key? :notices).to eq true
       end
+
+      it 'response의 notices는 공지사항 정보를 반환한다.' do
+        notice1 = create(:notice, title:'test1', context: 'test1', user_id:@user.id)
+        notice2 = create(:notice, title:'test2', context: 'test2', user_id:@user.id)
+
+        get :notice_list, params: @params
+        expect(response.status).to eq 200
+        body = Oj.load(response.body, symbol_keys: true)
+        notices = body[:notices]
+        expect(notices).to match(hash_including?(hash_including(response_notice_attributes(notice1, @user))))
+        expect(notices).to match(hash_including?(hash_including(response_notice_attributes(notice2, @user))))
+      end
+
+      it 'response의 notices의 댓글 정보가 있는 경우, 댓글 정보도 포함하여 반환한다.' do
+        another_user = create(:user)
+        notice1 = create(:notice, title:'test1', context: 'test1', user_id:@user.id)
+        notice_comment1 = create(:notice_comment, body: 'comment body1', user_id: another_user.id, notice_id: notice1.id)
+        notice_comment2 = create(:notice_comment, body: 'comment body2', user_id: another_user.id, notice_id: notice1.id)
+
+        get :notice_list, params: @params
+        expect(response.status).to eq 200
+        body = Oj.load(response.body, symbol_keys: true)
+        notices = body[:notices]
+
+        expect(notices[0][:comments]).to match(hash_including?(hash_including(response_notice_comment(notice_comment1))))
+        expect(notices[0][:comments]).to match(hash_including?(hash_including(response_notice_comment(notice_comment2))))
+      end
     end
 
     context '에러 케이스' do
@@ -80,4 +106,25 @@ end
 def init_header
   access_token = TokenService.create_auth_token(Time.now, @user, TokenService::TOKEN_TYPE::ACCESS_TOKEN, TokenService::TOKEN_EXPIRE::ACCESS_TOKEN)
   request.headers['X-YB-ACCESS-TOKEN'] = access_token
+end
+
+def response_notice_attributes(notice, user)
+  {
+      id: notice.id,
+      title: notice.title,
+      context: notice.context,
+      created_at: notice.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+      display_name: user.display_name,
+      attachments: [],
+      comments: []
+  }
+end
+
+def response_notice_comment(notice_comment)
+  {
+      id: notice_comment['id'],
+      content: notice_comment['body'],
+      display_name: User.find_by_id(notice_comment.user_id)&.display_name,
+      created_at: notice_comment['created_at'].strftime('%Y-%m-%d %H:%M:%S')
+  }
 end
