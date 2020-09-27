@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
       controller :users do
         get 'user_list' => :user_list
+        post 'push_token' => :upsert_push_token
       end
     end
 
