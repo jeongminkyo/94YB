@@ -43,6 +43,13 @@ class User < ApplicationRecord
     has_role?(:manager)
   end
 
+  def upsert_push_token(push_token)
+    self.user_token&.update_attributes!(push_token: push_token)
+  rescue => e
+    Rails.logger.warn(e, {}, { push_token: push_token }, ::YbLoggers::LogEventCodes::PUSH_TOKEN_ERROR)
+    nil
+  end
+
   class << self
     def find_for_oauth(auth, signed_in_resource = nil)
       # user와 identity가 nil이 아니라면 받는다

@@ -13,7 +13,6 @@ module TokenService
   end
 
   ISS = 'yb94'
-  AUD = 'auth'
 
   class << self
     def token_validation_check(token, token_type)
@@ -55,7 +54,7 @@ module TokenService
       payload = _set_payload_claim(user, token_type)
 
       expire_date = current_time + expire
-      registered_claim = _set_registered_claim(expire_date.to_i, ISS, AUD)
+      registered_claim = _set_registered_claim(expire_date.to_i, ISS)
 
       payload = payload.merge(registered_claim) if payload.present?
       token = JWT.encode payload, KEY, ALG_HS256
