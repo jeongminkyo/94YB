@@ -53,16 +53,11 @@ class AuthService < ApplicationService
 
     def renewal_token(refresh_token)
       log_options = { log_event_code: TOKEN_RENEWAL_ERROR }
-      raise internal_error_with_validation_fail(log_options, 'refresh_token not valid', log_level: :warn) unless TokenService.token_validation_check(refresh_token, TokenService::TOKEN_TYPE::REFRESH_TOKEN)
 
       user_token = UserToken.where(refresh_token: refresh_token).first
       return raise internal_error_with_invalid_params(log_options, 'user token not found', log_level: :warn) unless user_token.present?
       user = user_token.user
       return raise internal_error_with_invalid_params(log_options, 'user not found', log_level: :warn) unless user.present?
-
-      # Access_token 생성
-      access_token = TokenService.create_auth_token(Time.now, user, TokenService::TOKEN_TYPE::ACCESS_TOKEN, TokenService::TOKEN_EXPIRE::ACCESS_TOKEN)
-      raise internal_server_error(Errors::INTERNAL_SERVER_ERROR, log_options, 'access token not found', log_level: :warn) if access_token.blank?
 
       decode_token = TokenService.decode_token(refresh_token)[0]
 
@@ -74,6 +69,10 @@ class AuthService < ApplicationService
         raise internal_server_error(Errors::INTERNAL_SERVER_ERROR, log_options, 'refresh token not found', log_level: :warn) if refresh_token.blank?
         user_token.update_attributes!(refresh_token: new_refresh_token)
       end
+
+      # Access_token 생성
+      access_token = TokenService.create_auth_token(Time.now, user, TokenService::TOKEN_TYPE::ACCESS_TOKEN, TokenService::TOKEN_EXPIRE::ACCESS_TOKEN)
+      raise internal_server_error(Errors::INTERNAL_SERVER_ERROR, log_options, 'access token not found', log_level: :warn) if access_token.blank?
 
       {
           access_token: access_token,
