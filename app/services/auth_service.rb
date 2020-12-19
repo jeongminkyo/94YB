@@ -65,7 +65,8 @@ class AuthService < ApplicationService
       raise internal_server_error(Errors::INTERNAL_SERVER_ERROR, log_options, 'access token not found', log_level: :warn) if access_token.blank?
 
       decode_token = TokenService.decode_token(refresh_token)[0]
-      if TokenService.token_expire_over_ten_days?(decode_token)
+
+      if decode_token.present? && TokenService.token_expire_over_ten_days?(decode_token)
         new_refresh_token = nil
       else
         # Refresh Token 생성
