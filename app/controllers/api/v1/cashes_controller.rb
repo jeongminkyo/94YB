@@ -34,7 +34,7 @@ module Api::V1
     def account_info
       render json: {
           bank: '농협',
-          account_num: '356-0022-3397-93'
+          account_num: '356-1100-0267-33'
       }
     end
 
