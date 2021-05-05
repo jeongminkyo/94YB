@@ -9,7 +9,7 @@ module TokenService
 
   module TOKEN_EXPIRE
     ACCESS_TOKEN = 2.hours
-    REFRESH_TOKEN = 2.months
+    REFRESH_TOKEN = 6.months
   end
 
   ISS = 'yb94'
