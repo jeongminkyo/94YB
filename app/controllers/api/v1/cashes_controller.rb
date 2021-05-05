@@ -33,8 +33,8 @@ module Api::V1
 
     def account_info
       render json: {
-          bank: '농협',
-          account_num: '356-1100-0267-33'
+          bank: '카카오뱅크',
+          account_num: '3333-19-7065933'
       }
     end
 
