@@ -39,11 +39,11 @@ module TokenService
       false
     end
 
-    def token_expire_over_ten_days?(token)
+    def token_expire_in_two_month?(token)
       token_expire_date = Time.at(token['exp']).to_datetime
-      return false if token_expire_date < Time.now + 10.days
+      return true if token_expire_date < Time.now + 2.months
 
-      true
+      false
     rescue => e
       additional_infos = { token: token }
       Rails.logger.warn(e, nil, additional_infos, ::YbLoggers::LogEventCodes::VALID_TOKEN_ERROR)
