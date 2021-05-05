@@ -14,7 +14,7 @@ class AuthService < ApplicationService
         raise 'refresh_token not found' if refresh_token.blank?
 
         if user.user_token.present?
-          refresh_token = user.update_refresh_token(refresh_token)
+          user.update_refresh_token(refresh_token)
         else
           user.build_user_token(
               refresh_token: refresh_token
