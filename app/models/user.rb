@@ -50,6 +50,13 @@ class User < ApplicationRecord
     nil
   end
 
+  def update_refresh_token(refresh_token)
+    self.user_token&.update_attributes!(refresh_token: refresh_token)
+  rescue => e
+    Rails.logger.warn(e, {}, { refresh_token: refresh_token }, ::YbLoggers::LogEventCodes::PUSH_TOKEN_ERROR)
+    nil
+  end
+
   class << self
     def find_for_oauth(auth, signed_in_resource = nil)
       # user와 identity가 nil이 아니라면 받는다

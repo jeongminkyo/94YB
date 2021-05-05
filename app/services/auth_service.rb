@@ -6,15 +6,16 @@ class AuthService < ApplicationService
       raise internal_error_with_validation_fail(log_options, 'payload not found', log_level: :warn) unless payload.present?
 
       user = exist_user?(payload['sub'], provider)
+
       if user.present?
         access_token = TokenService.create_auth_token(Time.now, user, TokenService::TOKEN_TYPE::ACCESS_TOKEN, TokenService::TOKEN_EXPIRE::ACCESS_TOKEN)
-        if user.user_token.present?
-          refresh_token = user.user_token.refresh_token
-        else
-          # Refresh Token 생성
-          refresh_token = TokenService.create_auth_token(Time.now, user, TokenService::TOKEN_TYPE::REFRESH_TOKEN, TokenService::TOKEN_EXPIRE::REFRESH_TOKEN)
-          raise 'refresh_token not found' if refresh_token.blank?
+        refresh_token = TokenService.create_auth_token(Time.now, user, TokenService::TOKEN_TYPE::REFRESH_TOKEN, TokenService::TOKEN_EXPIRE::REFRESH_TOKEN)
 
+        raise 'refresh_token not found' if refresh_token.blank?
+
+        if user.user_token.present?
+          refresh_token = user.update_refresh_token(refresh_token)
+        else
           user.build_user_token(
               refresh_token: refresh_token
           )
